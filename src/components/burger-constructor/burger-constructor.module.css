@@ -42,6 +42,7 @@
 
 .elementWrapper {
   margin-left: 40px;
+  max-width: 525px;
 }
 
 .bottomContainer {

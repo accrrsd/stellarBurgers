@@ -1,5 +1,6 @@
 import style from './burger-ingredients.module.css'
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import propValidate from 'prop-types'
 import ingredientsData from '../../utils/data'
 import { useState, useContext, createRef, useEffect, forwardRef } from 'react'
 import { ingredientContext } from '../app/app'
@@ -18,6 +19,9 @@ const Category = forwardRef(({ type }, ref) => {
     </li>
   )
 })
+Category.propTypes = {
+  type: propValidate.string.isRequired,
+}
 
 const CurrentIngredient = ({ item }) => {
   const [count, setCount] = useState(0)
@@ -40,6 +44,9 @@ const CurrentIngredient = ({ item }) => {
       <p className={style.ingredientName}>{item.name}</p>
     </li>
   )
+}
+CurrentIngredient.propTypes = {
+  item: propValidate.object.isRequired,
 }
 
 export default function BurgerIngredients() {

@@ -2,6 +2,7 @@ import style from './modal.module.css'
 import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import propValidate from 'prop-types'
 const modalsContainer = document.querySelector('#modals')
 
 export default function Modal({ title, onOverlayClick, onEscDown, children }) {
@@ -28,4 +29,10 @@ export default function Modal({ title, onOverlayClick, onEscDown, children }) {
     </>,
     modalsContainer
   )
+}
+Modal.propTypes = {
+  title: propValidate.string,
+  onOverlayClick: propValidate.func.isRequired,
+  onEscDown: propValidate.func.isRequired,
+  children: propValidate.oneOfType([propValidate.node, propValidate.element]).isRequired,
 }

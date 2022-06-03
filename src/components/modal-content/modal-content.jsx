@@ -1,5 +1,6 @@
 import orderStyle from './order-accepted.module.css'
 import orderDone from '../../images/orderDone.jpg'
+import propValidate from 'prop-types'
 
 import infoStyle from './ingredient-info.module.css'
 import '../../fonts/jetBrainsFont.css'
@@ -18,6 +19,10 @@ const OrderAcceptedContent = ({ onSubmit }) => {
       </span>
     </div>
   )
+}
+
+OrderAcceptedContent.propTypes = {
+  onSubmit: propValidate.func,
 }
 
 const IngredientInfo = ({ item }) => {
@@ -53,6 +58,10 @@ const IngredientInfo = ({ item }) => {
       </ul>
     </div>
   )
+}
+
+IngredientInfo.propTypes = {
+  item: propValidate.object.isRequired,
 }
 
 export { OrderAcceptedContent, IngredientInfo }

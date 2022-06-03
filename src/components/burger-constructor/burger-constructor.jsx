@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import propValidate from 'prop-types'
 import style from './burger-constructor.module.css'
 import {
   ConstructorElement,
@@ -35,29 +36,32 @@ export default function BurgerConstructor({ onSubmit }) {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={sideBun.name}
+          text={`${sideBun.name} (верх)`}
           price={sideBun.price}
           thumbnail={sideBun.image}
         />
       </div>
       <ul className={style.container}>
-        {dataArray.map((item, index) => (
-          <li className={style.elementContainer} key={index}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              thumbnail={item.image}
-              text={item.name}
-              price={item.price}
-              handleClose={() => handleRemoveClick(index)}
-            />
-          </li>
-        ))}
+        {dataArray.map(
+          (item, index) =>
+            item.type !== 'bun' && (
+              <li className={style.elementContainer} key={index}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  thumbnail={item.image}
+                  text={item.name}
+                  price={item.price}
+                  handleClose={() => handleRemoveClick(index)}
+                />
+              </li>
+            )
+        )}
       </ul>
       <div className={style.elementWrapper}>
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={sideBun.name}
+          text={`${sideBun.name} (низ)`}
           price={sideBun.price}
           thumbnail={sideBun.image}
         />
@@ -73,4 +77,7 @@ export default function BurgerConstructor({ onSubmit }) {
       </div>
     </div>
   )
+}
+BurgerConstructor.propTypes = {
+  onSubmit: propValidate.func,
 }
