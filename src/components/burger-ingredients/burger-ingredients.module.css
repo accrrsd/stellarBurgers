@@ -1,0 +1,77 @@
+.title {
+  margin-bottom: 20px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  font-family: 'JetBrains Mono', Arial, Helvetica, sans-serif;
+}
+.container {
+  max-height: 900px;
+  overflow-y: scroll;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.container::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+.container::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #8585ad;
+}
+.categoryTitle {
+  margin-top: 40px;
+}
+.categoryContent {
+  margin: 0;
+  margin-top: 23px;
+  padding: 0 26px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+}
+.ingredient {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  align-items: center;
+  width: 250px;
+}
+.ingredient:hover {
+  cursor: pointer;
+}
+.ingredientCount {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ingredientName {
+  margin: 0 auto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+.ingredientImage {
+  width: 240px;
+  height: 120px;
+}
+.ingredientPrice {
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
