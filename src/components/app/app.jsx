@@ -17,10 +17,7 @@ export default function App() {
     fetch(dataUrl)
       .then((res) => res.json())
       .then((result) => result.data)
-      .then((data) => {
-        console.log(data[0])
-        return setIngredientsData(data)
-      })
+      .then((data) => setIngredientsData(data))
       .catch((err) => console.log(err))
   }, [])
 
