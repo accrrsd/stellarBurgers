@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import propValidate from 'prop-types'
 import style from './burger-constructor.module.css'
 import {
@@ -7,28 +7,29 @@ import {
   Button,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientData from '../../utils/data'
+import { ingredientContext } from '../app/app'
 
 export default function BurgerConstructor({ onSubmit }) {
-  const sideBun = IngredientData.find((item) => (item.name = 'Краторная булка N-200i'))
+  const { ingredientsData } = useContext(ingredientContext)
+  const sideBun = ingredientsData.find((item) => (item.name = 'Краторная булка N-200i'))
   // Данные для примера работы подсчета стоимости
   const [burgerValue, burgerValueSet] = useState(0)
-  const [dataArray, dataArraySet] = useState(() => {
+  const [exampleDataArray, exampleDataArraySet] = useState(() => {
     const res = []
     for (let i = 0; i < 10; i++) {
-      res.push(IngredientData[i])
+      res.push(ingredientsData[i])
     }
     return res
   })
 
   const handleSubmitClick = () => onSubmit(true)
   const handleRemoveClick = (index) =>
-    dataArraySet(dataArray.filter((item, itemIndex) => itemIndex !== index))
+    exampleDataArraySet(exampleDataArray.filter((item, itemIndex) => itemIndex !== index))
 
   useEffect(() => {
-    burgerValueSet(dataArray.reduce((sum, item) => sum + item.price, 0) + sideBun.price * 2)
+    burgerValueSet(exampleDataArray.reduce((sum, item) => sum + item.price, 0) + sideBun.price * 2)
     // eslint-disable-next-line
-  }, [dataArray])
+  }, [exampleDataArray])
 
   return (
     <div className={style.wrapper}>
@@ -42,7 +43,7 @@ export default function BurgerConstructor({ onSubmit }) {
         />
       </div>
       <ul className={style.container}>
-        {dataArray.map(
+        {exampleDataArray.map(
           (item, index) =>
             item.type !== 'bun' && (
               <li className={style.elementContainer} key={index}>

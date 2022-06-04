@@ -1,11 +1,11 @@
 import style from './burger-ingredients.module.css'
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import propValidate from 'prop-types'
-import ingredientsData from '../../utils/data'
 import { useState, useContext, createRef, useEffect, forwardRef } from 'react'
 import { ingredientContext } from '../app/app'
 
 const Category = forwardRef(({ type }, ref) => {
+  const { ingredientsData } = useContext(ingredientContext)
   return (
     <li>
       <h3 ref={ref} className={`${style.categoryTitle} text text_type_main-medium`}>
@@ -46,7 +46,20 @@ const CurrentIngredient = ({ item }) => {
   )
 }
 CurrentIngredient.propTypes = {
-  item: propValidate.object.isRequired,
+  item: propValidate.shape({
+    _id: propValidate.string.isRequired,
+    name: propValidate.string.isRequired,
+    type: propValidate.string.isRequired,
+    proteins: propValidate.number,
+    fat: propValidate.number,
+    carbohydrates: propValidate.number,
+    calories: propValidate.number,
+    price: propValidate.number.isRequired,
+    image: propValidate.string.isRequired,
+    image_mobile: propValidate.string,
+    image_large: propValidate.string,
+    __v: propValidate.any,
+  }).isRequired,
 }
 
 export default function BurgerIngredients() {

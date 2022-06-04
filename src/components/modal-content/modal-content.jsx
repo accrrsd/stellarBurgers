@@ -5,7 +5,7 @@ import propValidate from 'prop-types'
 import infoStyle from './ingredient-info.module.css'
 import '../../fonts/jetBrainsFont.css'
 
-const OrderAcceptedContent = ({ onSubmit }) => {
+const OrderDetails = ({ onSubmit }) => {
   return (
     <div className={orderStyle.wrapper}>
       <p className={`${orderStyle.nums} text text_type_digits-large`}>034536</p>
@@ -21,11 +21,11 @@ const OrderAcceptedContent = ({ onSubmit }) => {
   )
 }
 
-OrderAcceptedContent.propTypes = {
+OrderDetails.propTypes = {
   onSubmit: propValidate.func,
 }
 
-const IngredientInfo = ({ item }) => {
+const IngredientDetails = ({ item }) => {
   return (
     <div className={infoStyle.wrapper}>
       <img src={item.image} alt={item.name} className={infoStyle.image} />
@@ -34,25 +34,25 @@ const IngredientInfo = ({ item }) => {
         <li>
           <p className={infoStyle.dataItem}>
             <span>Калории,ккал</span>
-            <span> {item.calories}</span>
+            <span> {item.calories ? item.calories : '?'}</span>
           </p>
         </li>
         <li>
           <p className={infoStyle.dataItem}>
             <span>Белки, г</span>
-            <span> {item.proteins}</span>
+            <span> {item.proteins ? item.proteins : '?'}</span>
           </p>
         </li>
         <li>
           <p className={infoStyle.dataItem}>
             <span>Жиры, г</span>
-            <span> {item.fat}</span>
+            <span> {item.fat ? item.fat : '?'}</span>
           </p>
         </li>
         <li>
           <p className={infoStyle.dataItem}>
             <span>Углеводы, г</span>
-            <span> {item.carbohydrates}</span>
+            <span> {item.carbohydrates ? item.carbohydrates : '?'}</span>
           </p>
         </li>
       </ul>
@@ -60,8 +60,21 @@ const IngredientInfo = ({ item }) => {
   )
 }
 
-IngredientInfo.propTypes = {
-  item: propValidate.object.isRequired,
+IngredientDetails.propTypes = {
+  item: propValidate.shape({
+    _id: propValidate.string,
+    name: propValidate.string.isRequired,
+    type: propValidate.string,
+    proteins: propValidate.number.isRequired,
+    fat: propValidate.number.isRequired,
+    carbohydrates: propValidate.number.isRequired,
+    calories: propValidate.number.isRequired,
+    price: propValidate.number,
+    image: propValidate.string.isRequired,
+    image_mobile: propValidate.string,
+    image_large: propValidate.string,
+    __v: propValidate.any,
+  }).isRequired,
 }
 
-export { OrderAcceptedContent, IngredientInfo }
+export { OrderDetails, IngredientDetails }
