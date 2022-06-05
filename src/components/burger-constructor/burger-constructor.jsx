@@ -7,11 +7,11 @@ import {
   Button,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientContext } from '../app/app'
+import { IngredientContext } from '../app/app'
 
 export default function BurgerConstructor({ onSubmit }) {
-  const { ingredientsData } = useContext(ingredientContext)
-  const sideBun = ingredientsData.find((item) => (item.name = 'Краторная булка N-200i'))
+  const { ingredientsData } = useContext(IngredientContext)
+  const sideBun = ingredientsData.find((item) => item.type === 'bun')
   // Данные для примера работы подсчета стоимости
   const [burgerValue, burgerValueSet] = useState(0)
   const [exampleDataArray, exampleDataArraySet] = useState(() => {
