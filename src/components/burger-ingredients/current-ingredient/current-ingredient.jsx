@@ -1,8 +1,9 @@
-import style from './current-ingredient.module.css'
-import { ingredientForBurgerIngredients } from '../../../utils/propTypesSettings'
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState, useContext } from 'react'
-import { IngredientContext } from '../../app/app'
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import style from './current-ingredient.module.css'
+
+import { ingredientForBurgerIngredients } from '../../../utils/propTypesSettings'
+import { IngredientContext } from '../../../services/contexts'
 
 const CurrentIngredient = ({ item }) => {
   const [count, setCount] = useState(0)

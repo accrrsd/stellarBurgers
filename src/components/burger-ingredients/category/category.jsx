@@ -1,8 +1,10 @@
-import style from './category.module.css'
-import { IngredientContext } from '../../app/app'
 import { useContext, forwardRef } from 'react'
-import CurrentIngredient from '../current-ingredient/current-ingredient'
 import propValidate from 'prop-types'
+
+import style from './category.module.css'
+import CurrentIngredient from '../current-ingredient/current-ingredient'
+
+import { IngredientContext } from '../../../services/contexts'
 
 const Category = forwardRef(({ type }, ref) => {
   const { ingredientsData } = useContext(IngredientContext)

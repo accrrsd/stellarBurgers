@@ -16,14 +16,14 @@ export function getFromApi(str) {
  * @param {array} Массив _id ингредиентов
  * @returns
  */
-export function postOrder(ArrayOfId) {
+export function postOrder(arrayOfId) {
   return fetch(dataUrl + '/orders', {
     headers: {
       'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
-      ingredients: ArrayOfId,
+      ingredients: arrayOfId,
     }),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)))

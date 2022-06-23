@@ -1,17 +1,9 @@
 import '../../../fonts/jetBrainsFont.css'
-import style from './order-details.module.css'
 import propValidate from 'prop-types'
+import style from './order-details.module.css'
 import orderDone from '../../../images/orderDone.jpg'
-import { ConstructorContext } from '../../app/app'
-import { useState, useContext, useEffect } from 'react'
-import { postOrder } from '../../../utils/api'
 
-const OrderDetails = ({ onSubmit }) => {
-  const { constructorItems } = useContext(ConstructorContext)
-  const [orderInfo, setOrderInfo] = useState(false)
-  useEffect(() => {
-    postOrder(constructorItems.map((item) => item._id)).then((data) => setOrderInfo(data))
-  }, [constructorItems])
+const OrderDetails = ({ orderInfo, onSubmit }) => {
   return (
     <div className={style.wrapper}>
       <p className={`${style.nums} text text_type_digits-large`}>
@@ -30,6 +22,13 @@ const OrderDetails = ({ onSubmit }) => {
 }
 
 OrderDetails.propTypes = {
+  orderInfo: propValidate.shape({
+    name: propValidate.string,
+    order: propValidate.object,
+    success: propValidate.shape({
+      number: propValidate.number,
+    }),
+  }).isRequired,
   onSubmit: propValidate.func,
 }
 

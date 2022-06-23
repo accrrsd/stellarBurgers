@@ -7,18 +7,23 @@ import {
   Button,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IngredientContext } from '../app/app'
-import { ConstructorContext } from '../app/app'
 
-export default function BurgerConstructor({ onSubmit }) {
+import { IngredientContext } from '../../services/contexts'
+import { postOrder } from '../../utils/api'
+
+export default function BurgerConstructor({ setOrderInfo, onSubmit }) {
   const { ingredientsData } = useContext(IngredientContext)
-  const { constructorItems, setConstructorItems } = useContext(ConstructorContext)
+  const [constructorItems, setConstructorItems] = useState([])
   const sideBun = ingredientsData.find((item) => item.type === 'bun')
   // Данные для примера работы подсчета стоимости
   const [burgerValue, burgerValueSet] = useState(0)
-  const handleSubmitClick = () => onSubmit(true)
   const handleRemoveClick = (index) =>
     setConstructorItems(constructorItems.filter((item, itemIndex) => itemIndex !== index))
+
+  const createOrder = () => {
+    postOrder(constructorItems.map((item) => item._id)).then((data) => setOrderInfo(data))
+    onSubmit(true)
+  }
 
   //Заполняем ингредиенты конструктора данными
   useEffect(() => {
@@ -76,7 +81,7 @@ export default function BurgerConstructor({ onSubmit }) {
           {burgerValue}
           <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" size="large" onClick={handleSubmitClick}>
+        <Button type="primary" size="large" onClick={createOrder}>
           Оформить заказ
         </Button>
       </div>
@@ -84,5 +89,6 @@ export default function BurgerConstructor({ onSubmit }) {
   )
 }
 BurgerConstructor.propTypes = {
+  setOrderInfo: propValidate.func,
   onSubmit: propValidate.func,
 }
