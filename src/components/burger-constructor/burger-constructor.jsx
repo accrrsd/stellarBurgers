@@ -9,6 +9,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientContext } from '../app/app'
 
+//!! некорректно работает стоимость бургера
+
 export default function BurgerConstructor({ onSubmit }) {
   const { ingredientsData } = useContext(IngredientContext)
   const sideBun = ingredientsData.find((item) => item.type === 'bun')
