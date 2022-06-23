@@ -22,13 +22,16 @@ const OrderDetails = ({ orderInfo, onSubmit }) => {
 }
 
 OrderDetails.propTypes = {
-  orderInfo: propValidate.shape({
-    name: propValidate.string,
-    order: propValidate.object,
-    success: propValidate.shape({
-      number: propValidate.number,
+  orderInfo: propValidate.oneOfType([
+    propValidate.shape({
+      name: propValidate.string,
+      order: propValidate.shape({
+        number: propValidate.number,
+      }),
+      success: propValidate.bool,
     }),
-  }).isRequired,
+    propValidate.bool,
+  ]).isRequired,
   onSubmit: propValidate.func,
 }
 
