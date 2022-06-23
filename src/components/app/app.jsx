@@ -8,13 +8,15 @@ import OrderDetails from '../modal-content/order-details/order-details'
 import IngredientDetails from '../modal-content/ingredient-details/ingredient-details'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 
-import getFromApi from '../../utils/api'
+import { getFromApi } from '../../utils/api'
 const IngredientContext = createContext(null)
+const ConstructorContext = createContext(null)
 
 export default function App() {
   const [ingredient, setIngredient] = useState(false)
   const [isOrderDetailsOpened, setIsOrderDetailsOpened] = useState(false)
   const [ingredientsData, setIngredientsData] = useState(false)
+  const [constructorItems, setConstructorItems] = useState([])
 
   useEffect(() => {
     getFromApi('ingredients').then((data) => setIngredientsData(data))
@@ -27,24 +29,25 @@ export default function App() {
   return (
     <>
       <AppHeader />
+      <ConstructorContext.Provider value={{ constructorItems, setConstructorItems }}>
+        {ingredientsData && (
+          <div className={style.content}>
+            <IngredientContext.Provider value={{ ingredientsData, ingredient, setIngredient }}>
+              <BurgerIngredients />
+              <BurgerConstructor onSubmit={setIsOrderDetailsOpened} />
+            </IngredientContext.Provider>
+          </div>
+        )}
 
-      {ingredientsData && (
-        <div className={style.content}>
-          <IngredientContext.Provider value={{ ingredientsData, ingredient, setIngredient }}>
-            <BurgerIngredients />
-            <BurgerConstructor onSubmit={setIsOrderDetailsOpened} />
-          </IngredientContext.Provider>
-        </div>
-      )}
-
-      {isOrderDetailsOpened && (
-        <>
-          <Modal onEscKeyDown={closeAllModals}>
-            <OrderDetails onSubmit={closeAllModals} />
-          </Modal>
-          <ModalOverlay onClick={closeAllModals} />
-        </>
-      )}
+        {isOrderDetailsOpened && (
+          <>
+            <Modal onEscKeyDown={closeAllModals}>
+              <OrderDetails onSubmit={closeAllModals} />
+            </Modal>
+            <ModalOverlay onClick={closeAllModals} />
+          </>
+        )}
+      </ConstructorContext.Provider>
 
       {ingredient && (
         <>
@@ -57,4 +60,4 @@ export default function App() {
     </>
   )
 }
-export { IngredientContext }
+export { IngredientContext, ConstructorContext }

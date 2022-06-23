@@ -8,30 +8,35 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientContext } from '../app/app'
-
-//!! некорректно работает стоимость бургера
+import { ConstructorContext } from '../app/app'
 
 export default function BurgerConstructor({ onSubmit }) {
   const { ingredientsData } = useContext(IngredientContext)
+  const { constructorItems, setConstructorItems } = useContext(ConstructorContext)
   const sideBun = ingredientsData.find((item) => item.type === 'bun')
   // Данные для примера работы подсчета стоимости
   const [burgerValue, burgerValueSet] = useState(0)
-  const [exampleDataArray, exampleDataArraySet] = useState(() => {
-    const res = []
-    for (let i = 0; i < 10; i++) {
-      res.push(ingredientsData[i])
-    }
-    return res
-  })
-
   const handleSubmitClick = () => onSubmit(true)
   const handleRemoveClick = (index) =>
-    exampleDataArraySet(exampleDataArray.filter((item, itemIndex) => itemIndex !== index))
+    setConstructorItems(constructorItems.filter((item, itemIndex) => itemIndex !== index))
 
+  //Заполняем ингредиенты конструктора данными
   useEffect(() => {
-    burgerValueSet(exampleDataArray.reduce((sum, item) => sum + item.price, 0) + sideBun.price * 2)
+    setConstructorItems(() => {
+      const res = []
+      for (let i = 0; i < 10; i++) {
+        ingredientsData[i].type !== 'bun' && res.push(ingredientsData[i])
+      }
+      return res
+    })
     // eslint-disable-next-line
-  }, [exampleDataArray])
+  }, [])
+
+  // Подсчет стоимости бургера
+  useEffect(() => {
+    burgerValueSet(constructorItems.reduce((sum, item) => sum + item.price, 0) + sideBun.price * 2)
+    // eslint-disable-next-line
+  }, [constructorItems])
 
   return (
     <div className={style.wrapper}>
@@ -45,20 +50,17 @@ export default function BurgerConstructor({ onSubmit }) {
         />
       </div>
       <ul className={style.container}>
-        {exampleDataArray.map(
-          (item, index) =>
-            item.type !== 'bun' && (
-              <li className={style.elementContainer} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  thumbnail={item.image}
-                  text={item.name}
-                  price={item.price}
-                  handleClose={() => handleRemoveClick(index)}
-                />
-              </li>
-            )
-        )}
+        {constructorItems.map((item, index) => (
+          <li className={style.elementContainer} key={index}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              thumbnail={item.image}
+              text={item.name}
+              price={item.price}
+              handleClose={() => handleRemoveClick(index)}
+            />
+          </li>
+        ))}
       </ul>
       <div className={style.elementWrapper}>
         <ConstructorElement
