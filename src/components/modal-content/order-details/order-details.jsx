@@ -3,11 +3,18 @@ import propValidate from 'prop-types'
 import style from './order-details.module.css'
 import orderDone from '../../../images/orderDone.jpg'
 
-const OrderDetails = ({ orderInfo, onSubmit }) => {
+import { useSelector } from 'react-redux/es/exports'
+
+const OrderDetails = ({ onSubmit }) => {
+  const orderInfo = useSelector((store) => store.orderDetailsReducer)
   return (
     <div className={style.wrapper}>
       <p className={`${style.nums} text text_type_digits-large`}>
-        {orderInfo ? (orderInfo.success ? orderInfo.order.number : 'Ошибка') : '⠀'}
+        {orderInfo.success
+          ? orderInfo.success === 'pending'
+            ? 'Ждём'
+            : orderInfo.number
+          : 'Ошибка'}
       </p>
       <h4 className={`${style.subtitle} text text_type_main-medium`}>Идентификатор заказа</h4>
       <button className={style.checkMark} onClick={onSubmit}>
@@ -22,16 +29,6 @@ const OrderDetails = ({ orderInfo, onSubmit }) => {
 }
 
 OrderDetails.propTypes = {
-  orderInfo: propValidate.oneOfType([
-    propValidate.shape({
-      name: propValidate.string,
-      order: propValidate.shape({
-        number: propValidate.number,
-      }),
-      success: propValidate.bool,
-    }),
-    propValidate.bool,
-  ]).isRequired,
   onSubmit: propValidate.func,
 }
 

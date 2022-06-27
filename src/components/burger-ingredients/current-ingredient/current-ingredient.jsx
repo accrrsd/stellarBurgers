@@ -1,16 +1,17 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './current-ingredient.module.css'
+import { useDispatch } from 'react-redux/es/exports'
+import { openIngredientInfo } from '../../../services/slices/ingredientDetails'
 
 import { ingredientForBurgerIngredients } from '../../../utils/propTypesSettings'
-import { IngredientContext } from '../../../services/contexts'
 
 const CurrentIngredient = ({ item }) => {
   const [count, setCount] = useState(0)
-  const { setIngredient } = useContext(IngredientContext)
+  const dispatch = useDispatch()
   function handleClick() {
     setCount(count + 1)
-    setIngredient(item)
+    dispatch(openIngredientInfo(item))
   }
   return (
     <li className={style.ingredient} onClick={handleClick}>

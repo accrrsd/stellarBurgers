@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import AppHeader from '../app-header/app-header'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
@@ -9,39 +10,39 @@ import OrderDetails from '../modal-content/order-details/order-details'
 import IngredientDetails from '../modal-content/ingredient-details/ingredient-details'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 
-import { getFromApi } from '../../utils/api'
-import { IngredientContext } from '../../services/contexts'
+import { getIngredients } from '../../services/slices/ingredients'
+import { closeIngredientInfo } from '../../services/slices/ingredientDetails'
+import { closeOrderDetails } from '../../services/slices/orderDetails'
 
 export default function App() {
-  const [ingredient, setIngredient] = useState(false)
-  const [isOrderDetailsOpened, setIsOrderDetailsOpened] = useState(false)
-  const [ingredientsData, setIngredientsData] = useState(false)
-  const [orderInfo, setOrderInfo] = useState(false)
+  const ingredient = useSelector((store) => store.ingredientDetailsReducer.ingredient)
+  const orderDetails = useSelector((store) => store.orderDetailsReducer)
+  const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredients)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getFromApi('ingredients').then((data) => setIngredientsData(data))
-  }, [])
+    dispatch(getIngredients())
+  }, [dispatch])
 
   const closeAllModals = () => {
-    setIsOrderDetailsOpened(false)
-    setIngredient(false)
+    dispatch(closeOrderDetails())
+    dispatch(closeIngredientInfo())
   }
   return (
     <>
       <AppHeader />
       {ingredientsData && (
         <div className={style.content}>
-          <IngredientContext.Provider value={{ ingredientsData, ingredient, setIngredient }}>
-            <BurgerIngredients />
-            <BurgerConstructor setOrderInfo={setOrderInfo} onSubmit={setIsOrderDetailsOpened} />
-          </IngredientContext.Provider>
+          <BurgerIngredients />
+          <BurgerConstructor />
         </div>
       )}
-
-      {isOrderDetailsOpened && (
+      {/* Если запрос вообще был проведен */}
+      {orderDetails.success !== null && (
         <>
           <Modal onEscKeyDown={closeAllModals}>
-            <OrderDetails orderInfo={orderInfo} onSubmit={closeAllModals} />
+            <OrderDetails onSubmit={closeAllModals} />
           </Modal>
           <ModalOverlay onClick={closeAllModals} />
         </>
@@ -50,7 +51,7 @@ export default function App() {
       {ingredient && (
         <>
           <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
-            <IngredientDetails item={ingredient} />
+            <IngredientDetails />
           </Modal>
           <ModalOverlay onClick={closeAllModals} />
         </>

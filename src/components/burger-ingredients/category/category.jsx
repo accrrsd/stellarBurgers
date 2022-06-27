@@ -1,13 +1,12 @@
-import { useContext, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import propValidate from 'prop-types'
+import { useSelector } from 'react-redux/es/exports'
 
 import style from './category.module.css'
 import CurrentIngredient from '../current-ingredient/current-ingredient'
 
-import { IngredientContext } from '../../../services/contexts'
-
 const Category = forwardRef(({ type }, ref) => {
-  const { ingredientsData } = useContext(IngredientContext)
+  const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredients)
   return (
     <li>
       <h3 ref={ref} className={`${style.categoryTitle} text text_type_main-medium`}>
