@@ -5,10 +5,15 @@ const constructorListSlice = createSlice({
   initialState: {
     items: [],
     value: 0,
+    sideBun: {},
+    changedItem: false,
   },
   reducers: {
     initItems(state, action) {
       state.items = action.payload
+    },
+    changeSideBun(state, action) {
+      state.sideBun = action.payload
     },
     addItem(state, action) {
       state.items.push(action.payload)
@@ -23,6 +28,6 @@ const constructorListSlice = createSlice({
   },
 })
 
-export const { initItems, addItem, removeItem, changeValue, moveItem } =
+export const { initItems, addItem, removeItem, changeValue, moveItem, changeSideBun } =
   constructorListSlice.actions
 export const constructorReducer = constructorListSlice.reducer

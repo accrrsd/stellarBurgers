@@ -31,7 +31,7 @@
   margin-right: 28px;
   margin-left: 10px;
   display: flex;
-  gap: 10px;
+  gap: 7px;
   align-items: center;
   justify-content: flex-end;
 }
@@ -59,4 +59,9 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
