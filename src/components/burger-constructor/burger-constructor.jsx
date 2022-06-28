@@ -82,9 +82,9 @@ export default function BurgerConstructor() {
           thumbnail={sideBun.image}
         />
       </div>
-      <ul className={style.container} style={{ opacity: mainOpacity }}>
+      <ul className={style.container}>
         {constructorItems.map((item, index) => (
-          <ListElement item={item} index={index} key={index} />
+          <ListElement item={item} index={index} key={index} stylized={mainOpacity} />
         ))}
         {elemHover && (
           <PhantomListElement item={elemHover} key={constructorItems.length + 1} ref={previewRef} />
