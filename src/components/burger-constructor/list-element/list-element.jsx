@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDrag, useDrop } from 'react-dnd'
-import { forwardRef, useRef } from 'react'
+import { forwardRef, useRef, useState } from 'react'
+import propValidate from 'prop-types'
 import { removeItem, moveItem, dropMovableItem } from '../../../services/slices/constructorList'
+import { ingredientForBurger } from '../../../utils/propTypesSettings'
 import style from './list-element.module.css'
 
-export function ListElement({ item, index, stylized }) {
+export function ListElement({ item, index, blackoutOpacity }) {
   const dispatch = useDispatch()
   const elementRef = useRef(null)
   const draggingIndex = useSelector((store) => store.constructorReducer.draggingIndex)
+  const [mouseHoldState, setMouseHoldState] = useState(false)
   const [, dropRef] = useDrop({
     accept: 'constructor/listElement',
     hover(item, monitor) {
@@ -59,7 +62,13 @@ export function ListElement({ item, index, stylized }) {
     <li
       className={style.elementContainer}
       ref={elementRef}
-      style={{ opacity: stylized !== 1 || draggingIndex === index ? 0.5 : 1 }}
+      style={{
+        opacity:
+          mouseHoldState === true || blackoutOpacity !== 1 || draggingIndex === index ? 0.5 : 1,
+      }}
+      onMouseDown={() => setMouseHoldState(true)}
+      onMouseUp={() => setMouseHoldState(false)}
+      onDragLeave={() => setMouseHoldState(false)}
     >
       <span className={style.icon}>
         <DragIcon type="primary" />
@@ -74,6 +83,18 @@ export function ListElement({ item, index, stylized }) {
   )
 }
 
+ListElement.propTypes = {
+  item: propValidate.shape({
+    _id: propValidate.string.isRequired,
+    name: propValidate.string.isRequired,
+    type: propValidate.string.isRequired,
+    price: propValidate.number.isRequired,
+    image: propValidate.string.isRequired,
+  }).isRequired,
+  index: propValidate.number.isRequired,
+  blackoutOpacity: propValidate.number,
+}
+
 export const PhantomListElement = forwardRef(({ item }, elementRef) => {
   return (
     <li className={style.elementContainer} ref={elementRef}>
@@ -84,3 +105,5 @@ export const PhantomListElement = forwardRef(({ item }, elementRef) => {
     </li>
   )
 })
+
+PhantomListElement.propTypes = ingredientForBurger

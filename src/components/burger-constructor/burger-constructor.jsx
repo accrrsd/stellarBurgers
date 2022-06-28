@@ -18,8 +18,6 @@ import {
 import { getOrderDetails } from '../../services/slices/orderDetails'
 import { ListElement, PhantomListElement } from './list-element/list-element'
 
-// todo Сделать перетаскивание
-
 export default function BurgerConstructor() {
   const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredients)
   const previewRef = createRef(null)
@@ -54,7 +52,6 @@ export default function BurgerConstructor() {
 
   //Булки по умолчанию
   useEffect(() => {
-    dispatch(initItems(ingredientsData))
     dispatch(changeSideBun(ingredientsData.find((item) => item.type === 'bun')))
     // eslint-disable-next-line
   }, [])
@@ -84,7 +81,7 @@ export default function BurgerConstructor() {
       </div>
       <ul className={style.container}>
         {constructorItems.map((item, index) => (
-          <ListElement item={item} index={index} key={index} stylized={mainOpacity} />
+          <ListElement item={item} index={index} key={index} blackoutOpacity={mainOpacity} />
         ))}
         {elemHover && (
           <PhantomListElement item={elemHover} key={constructorItems.length + 1} ref={previewRef} />

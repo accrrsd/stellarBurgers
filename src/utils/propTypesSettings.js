@@ -1,6 +1,6 @@
 import propValidate from 'prop-types'
 
-export const ingredientForBurgerIngredients = {
+export const ingredientForBurger = {
   item: propValidate.shape({
     _id: propValidate.string.isRequired,
     name: propValidate.string.isRequired,

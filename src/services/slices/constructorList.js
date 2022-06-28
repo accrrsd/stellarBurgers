@@ -10,6 +10,7 @@ const constructorListSlice = createSlice({
     draggingIndex: false,
   },
   reducers: {
+    // Для тестов
     initItems(state, action) {
       state.items = action.payload
     },
