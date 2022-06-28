@@ -5,19 +5,18 @@ import propValidate from 'prop-types'
 import style from './burger-constructor.module.css'
 import {
   ConstructorElement,
-  DragIcon,
   Button,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import {
-  removeItem,
   changeValue,
   addItem,
   changeSideBun,
   initItems,
 } from '../../services/slices/constructorList'
 import { getOrderDetails } from '../../services/slices/orderDetails'
+import { ListElement, PhantomListElement } from './list-element/list-element'
 
 // todo Сделать перетаскивание
 
@@ -85,29 +84,10 @@ export default function BurgerConstructor() {
       </div>
       <ul className={style.container} style={{ opacity: mainOpacity }}>
         {constructorItems.map((item, index) => (
-          <li className={style.elementContainer} key={index}>
-            <span className={style.icon}>
-              <DragIcon type="primary" />
-            </span>
-            <ConstructorElement
-              thumbnail={item.image}
-              text={item.name}
-              price={item.price}
-              handleClose={() => dispatch(removeItem(index))}
-            />
-          </li>
+          <ListElement item={item} index={index} key={index} />
         ))}
         {elemHover && (
-          <li className={style.elementContainer} key={constructorItems.length + 1} ref={previewRef}>
-            <span className={style.icon}>
-              <DragIcon type="primary" />
-            </span>
-            <ConstructorElement
-              thumbnail={elemHover.image}
-              text={elemHover.name}
-              price={elemHover.price}
-            />
-          </li>
+          <PhantomListElement item={elemHover} key={constructorItems.length + 1} ref={previewRef} />
         )}
       </ul>
       <div className={style.elementWrapper} style={{ opacity: bunOpacity }}>

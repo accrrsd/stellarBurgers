@@ -1,0 +1,22 @@
+.elementContainer {
+  margin-right: 28px;
+  margin-left: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.elementContainer div {
+  width: 100%;
+}
+
+.icon {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.icon svg {
+  width: 20.59px;
+  height: 24px;
+}
