@@ -23,7 +23,11 @@ export default function BurgerConstructor() {
 
   const sideBun = useSelector((store) => store.constructorReducer.sideBun)
 
-  const createOrder = () => dispatch(getOrderDetails(constructorItems.map((item) => item._id)))
+  const createOrder = () => {
+    const result = constructorItems.map((item) => item._id)
+    result.push(sideBun._id, sideBun._id)
+    dispatch(getOrderDetails(result))
+  }
 
   const [{ mainOpacity, bunOpacity, elemHover }, dropTarget] = useDrop({
     accept: ['ingredient/sauce', 'ingredient/main', 'ingredient/bun'],
