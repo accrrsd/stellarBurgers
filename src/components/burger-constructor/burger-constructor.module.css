@@ -31,7 +31,7 @@
   margin-right: 28px;
   margin-left: 10px;
   display: flex;
-  gap: 7px;
+  gap: 10px;
   align-items: center;
   justify-content: flex-end;
 }
@@ -61,7 +61,11 @@
   justify-content: center;
 }
 .icon {
-  width: 24px;
-  height: 24px;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
+}
+.icon svg {
+  width: 20.59px;
+  height: 24px;
 }

@@ -99,7 +99,9 @@ export default function BurgerConstructor() {
         ))}
         {elemHover && (
           <li className={style.elementContainer} key={constructorItems.length + 1} ref={previewRef}>
-            <DragIcon type="primary" />
+            <span className={style.icon}>
+              <DragIcon type="primary" />
+            </span>
             <ConstructorElement
               thumbnail={elemHover.image}
               text={elemHover.name}
