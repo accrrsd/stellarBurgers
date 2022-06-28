@@ -9,12 +9,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import {
-  changeValue,
-  addItem,
-  changeSideBun,
-  initItems,
-} from '../../services/slices/constructorList'
+import { changeValue, addItem, changeSideBun } from '../../services/slices/constructorList'
 import { getOrderDetails } from '../../services/slices/orderDetails'
 import { ListElement, PhantomListElement } from './list-element/list-element'
 
