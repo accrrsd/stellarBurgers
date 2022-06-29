@@ -9,12 +9,15 @@ import { useDrag } from 'react-dnd'
 
 const CurrentIngredient = ({ item }) => {
   const [count, setCount] = useState(0)
+  const sideBun = useSelector((store) => store.constructorReducer.sideBun)
   const items = useSelector((store) => store.constructorReducer.items)
   useEffect(() => {
-    setCount(
-      items.reduce((sum, itemOfList) => (itemOfList._id === item._id ? sum + 1 : sum + 0), 0)
-    )
-  }, [items, item._id])
+    sideBun && item._id === sideBun._id
+      ? setCount(2)
+      : setCount(
+          items.reduce((sum, itemOfList) => (itemOfList._id === item._id ? sum + 1 : sum + 0), 0)
+        )
+  }, [items, item._id, sideBun])
 
   const dispatch = useDispatch()
   const [{ isDrag }, dragRef] = useDrag({

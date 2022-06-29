@@ -1,7 +1,6 @@
 import { useEffect, createRef } from 'react'
 import { useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
-import propValidate from 'prop-types'
 import style from './burger-constructor.module.css'
 import {
   ConstructorElement,
@@ -9,6 +8,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { v4 as uuidv4 } from 'uuid'
+
 import emptySpace from '../../images/transparent.png'
 
 import {
@@ -32,15 +32,24 @@ export default function BurgerConstructor() {
   const createOrder = () => {
     dispatch(
       getOrderDetails(constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id))
-    ).catch((err) => console.log(err))
+    )
     dispatch(initItems([]))
     dispatch(changeSideBun(false))
+  }
+
+  const createUuid = (obj) => {
+    const newObj = structuredClone(obj)
+    newObj.uuid = uuidv4()
+    return newObj
   }
 
   const [{ mainOpacity, bunOpacity, elemHover }, dropTarget] = useDrop({
     accept: ['ingredient/sauce', 'ingredient/main', 'ingredient/bun'],
     drop(item, monitor) {
-      dispatch(monitor.getItemType() === 'ingredient/bun' ? changeSideBun(item) : addItem(item))
+      const newItem = createUuid(item)
+      dispatch(
+        monitor.getItemType() === 'ingredient/bun' ? changeSideBun(newItem) : addItem(newItem)
+      )
     },
     collect: (monitor) => ({
       bunOpacity: monitor.getItemType() === 'ingredient/bun' ? 0.5 : 1,
@@ -64,8 +73,14 @@ export default function BurgerConstructor() {
     // eslint-disable-next-line
   }, [constructorItems, sideBun, elemHover])
 
-  // Скроллим для превью нового ингредиента
+  // Создаем уникальный идентификатор для ховер ингредиента
+  let elemHoverUuid
   useEffect(() => {
+    if (elemHover) {
+      // eslint-disable-next-line
+      elemHoverUuid = createUuid(elemHover)
+    }
+    // Скроллим для превью нового ингредиента
     elemHover && previewRef.current.scrollIntoView()
   }, [elemHover, previewRef])
 
@@ -82,9 +97,9 @@ export default function BurgerConstructor() {
       </div>
       <ul className={style.container}>
         {constructorItems.map((item, index) => (
-          <ListElement item={item} index={index} key={uuidv4()} blackoutOpacity={mainOpacity} />
+          <ListElement item={item} index={index} key={item.uuid} blackoutOpacity={mainOpacity} />
         ))}
-        {elemHover && <PhantomListElement item={elemHover} key={uuidv4()} ref={previewRef} />}
+        {elemHover && <PhantomListElement item={elemHover} key={elemHoverUuid} ref={previewRef} />}
       </ul>
       <div className={style.elementWrapper} style={{ opacity: bunOpacity }}>
         <ConstructorElement
@@ -111,8 +126,4 @@ export default function BurgerConstructor() {
       </div>
     </div>
   )
-}
-BurgerConstructor.propTypes = {
-  setOrderInfo: propValidate.func,
-  onSubmit: propValidate.func,
 }

@@ -21,7 +21,7 @@ export default function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getIngredients()).catch((err) => console.log(err))
+    dispatch(getIngredients())
   }, [dispatch])
 
   const closeAllModals = () => {
@@ -39,19 +39,15 @@ export default function App() {
       )}
       {/* Если запрос вообще был проведен */}
       {orderDetails.success !== null && (
-        <>
-          <Modal onEscKeyDown={closeAllModals}>
-            <OrderDetails onSubmit={closeAllModals} />
-          </Modal>
-        </>
+        <Modal onEscKeyDown={closeAllModals}>
+          <OrderDetails onSubmit={closeAllModals} />
+        </Modal>
       )}
 
       {ingredient && (
-        <>
-          <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
-            <IngredientDetails />
-          </Modal>
-        </>
+        <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
+          <IngredientDetails />
+        </Modal>
       )}
     </>
   )
