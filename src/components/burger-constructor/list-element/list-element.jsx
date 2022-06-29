@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import { forwardRef, useRef, useState } from 'react'
 import propValidate from 'prop-types'
 import { removeItem, moveItem, dropMovableItem } from '../../../services/slices/constructorList'
-import { ingredientForBurger } from '../../../utils/propTypesSettings'
+import { ingredientType } from '../../../utils/propTypesSettings'
 import style from './list-element.module.css'
 
 export function ListElement({ item, index, blackoutOpacity }) {
@@ -63,8 +63,7 @@ export function ListElement({ item, index, blackoutOpacity }) {
       className={style.elementContainer}
       ref={elementRef}
       style={{
-        opacity:
-          mouseHoldState === true || blackoutOpacity !== 1 || draggingIndex === index ? 0.5 : 1,
+        opacity: mouseHoldState || blackoutOpacity !== 1 || draggingIndex === index ? 0.5 : 1,
       }}
       onMouseDown={() => setMouseHoldState(true)}
       onMouseUp={() => setMouseHoldState(false)}
@@ -84,13 +83,7 @@ export function ListElement({ item, index, blackoutOpacity }) {
 }
 
 ListElement.propTypes = {
-  item: propValidate.shape({
-    _id: propValidate.string.isRequired,
-    name: propValidate.string.isRequired,
-    type: propValidate.string.isRequired,
-    price: propValidate.number.isRequired,
-    image: propValidate.string.isRequired,
-  }).isRequired,
+  ...ingredientType,
   index: propValidate.number.isRequired,
   blackoutOpacity: propValidate.number,
 }
@@ -106,4 +99,4 @@ export const PhantomListElement = forwardRef(({ item }, elementRef) => {
   )
 })
 
-PhantomListElement.propTypes = ingredientForBurger
+PhantomListElement.propTypes = ingredientType

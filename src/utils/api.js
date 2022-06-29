@@ -7,9 +7,8 @@ const dataUrl = 'https://norma.nomoreparties.space/api'
 export function getFromApi(str) {
   const url = str ? `${dataUrl}/${str}` : dataUrl
   return fetch(url)
-    .then((res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)))
+    .then(checkResponse)
     .then((result) => result.data)
-    .catch((err) => console.log(err))
 }
 /**
  *
@@ -26,7 +25,8 @@ export function postOrder(arrayOfId) {
       ingredients: arrayOfId,
     }),
   })
-    .then((res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)))
+    .then(checkResponse)
     .then((result) => result)
-    .catch((err) => console.log(err))
 }
+
+const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))

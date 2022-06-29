@@ -8,7 +8,6 @@ import Modal from '../modal/modal'
 import style from './app.module.css'
 import OrderDetails from '../modal-content/order-details/order-details'
 import IngredientDetails from '../modal-content/ingredient-details/ingredient-details'
-import ModalOverlay from '../modal-overlay/modal-overlay'
 
 import { getIngredients } from '../../services/slices/ingredients'
 import { closeIngredientInfo } from '../../services/slices/ingredientDetails'
@@ -22,7 +21,7 @@ export default function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getIngredients())
+    dispatch(getIngredients()).catch((err) => console.log(err))
   }, [dispatch])
 
   const closeAllModals = () => {
@@ -44,7 +43,6 @@ export default function App() {
           <Modal onEscKeyDown={closeAllModals}>
             <OrderDetails onSubmit={closeAllModals} />
           </Modal>
-          <ModalOverlay onClick={closeAllModals} />
         </>
       )}
 
@@ -53,7 +51,6 @@ export default function App() {
           <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
             <IngredientDetails />
           </Modal>
-          <ModalOverlay onClick={closeAllModals} />
         </>
       )}
     </>

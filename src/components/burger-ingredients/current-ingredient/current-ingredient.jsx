@@ -4,7 +4,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import style from './current-ingredient.module.css'
 
 import { openIngredientInfo } from '../../../services/slices/ingredientDetails'
-import { ingredientForBurger } from '../../../utils/propTypesSettings'
+import { ingredientType } from '../../../utils/propTypesSettings'
 import { useDrag } from 'react-dnd'
 
 const CurrentIngredient = ({ item }) => {
@@ -44,5 +44,5 @@ const CurrentIngredient = ({ item }) => {
     )
   )
 }
-CurrentIngredient.propTypes = ingredientForBurger
+CurrentIngredient.propTypes = ingredientType
 export default CurrentIngredient

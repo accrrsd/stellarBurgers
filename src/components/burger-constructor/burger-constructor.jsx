@@ -8,13 +8,19 @@ import {
   Button,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
+import { v4 as uuidv4 } from 'uuid'
+import emptySpace from '../../images/transparent.png'
 
-import { changeValue, addItem, changeSideBun } from '../../services/slices/constructorList'
+import {
+  changeValue,
+  addItem,
+  changeSideBun,
+  initItems,
+} from '../../services/slices/constructorList'
 import { getOrderDetails } from '../../services/slices/orderDetails'
 import { ListElement, PhantomListElement } from './list-element/list-element'
 
 export default function BurgerConstructor() {
-  const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredients)
   const previewRef = createRef(null)
   const dispatch = useDispatch()
 
@@ -24,9 +30,11 @@ export default function BurgerConstructor() {
   const sideBun = useSelector((store) => store.constructorReducer.sideBun)
 
   const createOrder = () => {
-    const result = constructorItems.map((item) => item._id)
-    result.push(sideBun._id, sideBun._id)
-    dispatch(getOrderDetails(result))
+    dispatch(
+      getOrderDetails(constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id))
+    ).catch((err) => console.log(err))
+    dispatch(initItems([]))
+    dispatch(changeSideBun(false))
   }
 
   const [{ mainOpacity, bunOpacity, elemHover }, dropTarget] = useDrop({
@@ -49,16 +57,10 @@ export default function BurgerConstructor() {
     }),
   })
 
-  //Булки по умолчанию
-  useEffect(() => {
-    dispatch(changeSideBun(ingredientsData.find((item) => item.type === 'bun')))
-    // eslint-disable-next-line
-  }, [])
-
   // Подсчет стоимости бургера
   useEffect(() => {
     const items = constructorItems.reduce((sum, item) => sum + item.price, 0)
-    dispatch(changeValue(items + sideBun.price * 2 + (elemHover ? elemHover.price : 0)))
+    dispatch(changeValue(items + (sideBun.price || 0) * 2 + (elemHover.price || 0)))
     // eslint-disable-next-line
   }, [constructorItems, sideBun, elemHover])
 
@@ -73,26 +75,24 @@ export default function BurgerConstructor() {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={`${sideBun.name} (верх)`}
-          price={sideBun.price}
-          thumbnail={sideBun.image}
+          text={sideBun ? `${sideBun.name} (верх)` : 'Перетащите булку и ингредиенты'}
+          price={sideBun.price || false}
+          thumbnail={sideBun.image || emptySpace}
         />
       </div>
       <ul className={style.container}>
         {constructorItems.map((item, index) => (
-          <ListElement item={item} index={index} key={index} blackoutOpacity={mainOpacity} />
+          <ListElement item={item} index={index} key={uuidv4()} blackoutOpacity={mainOpacity} />
         ))}
-        {elemHover && (
-          <PhantomListElement item={elemHover} key={constructorItems.length + 1} ref={previewRef} />
-        )}
+        {elemHover && <PhantomListElement item={elemHover} key={uuidv4()} ref={previewRef} />}
       </ul>
       <div className={style.elementWrapper} style={{ opacity: bunOpacity }}>
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${sideBun.name} (низ)`}
-          price={sideBun.price}
-          thumbnail={sideBun.image}
+          text={sideBun ? `${sideBun.name} (низ)` : 'Перетащите булку и ингредиенты'}
+          price={sideBun.price || false}
+          thumbnail={sideBun.image || emptySpace}
         />
       </div>
       <div className={style.bottomContainer}>
@@ -100,7 +100,12 @@ export default function BurgerConstructor() {
           {constructorValue}
           <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" size="large" onClick={createOrder}>
+        <Button
+          type="primary"
+          size="large"
+          onClick={createOrder}
+          disabled={!sideBun || constructorItems.length === 0}
+        >
           Оформить заказ
         </Button>
       </div>

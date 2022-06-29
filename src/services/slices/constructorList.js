@@ -5,7 +5,7 @@ const constructorListSlice = createSlice({
   initialState: {
     items: [],
     value: 0,
-    sideBun: {},
+    sideBun: false,
     changedItem: false,
     draggingIndex: false,
   },

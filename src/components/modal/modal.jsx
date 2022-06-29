@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import propValidate from 'prop-types'
+import ModalOverlay from '../modal-overlay/modal-overlay'
 const modalsContainer = document.querySelector('#modals')
 
 export default function Modal({ title, onEscKeyDown, children }) {
@@ -16,17 +17,20 @@ export default function Modal({ title, onEscKeyDown, children }) {
   }, [])
 
   return ReactDOM.createPortal(
-    <div className={style.modal}>
-      <div className={style.content} onClick={(e) => e.stopPropagation()}>
-        <div className={style.upper}>
-          <h4 className={style.title}>{title ? title : ''}</h4>
-          <button className={style.closeButton} onClick={onEscKeyDown}>
-            <CloseIcon type="primary" />
-          </button>
+    <>
+      <div className={style.modal}>
+        <div className={style.content} onClick={(e) => e.stopPropagation()}>
+          <div className={style.upper}>
+            <h4 className={style.title}>{title ? title : ''}</h4>
+            <button className={style.closeButton} onClick={onEscKeyDown}>
+              <CloseIcon type="primary" />
+            </button>
+          </div>
+          {children}
         </div>
-        {children}
       </div>
-    </div>,
+      <ModalOverlay onClick={onEscKeyDown} />
+    </>,
     modalsContainer
   )
 }
