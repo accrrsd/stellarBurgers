@@ -79,7 +79,6 @@ export default function BurgerConstructor() {
     if (elemHover) {
       // eslint-disable-next-line
       elemHoverUuid = createUuid(elemHover)
-      console.log(elemHoverUuid)
     }
     // Скроллим для превью нового ингредиента
     elemHover && previewRef.current.scrollIntoView()
