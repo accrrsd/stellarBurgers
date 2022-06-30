@@ -74,11 +74,12 @@ export default function BurgerConstructor() {
   }, [constructorItems, sideBun, elemHover])
 
   // Создаем уникальный идентификатор для ховер ингредиента
-  let elemHoverUuid
+  let elemHoverUuid = false
   useEffect(() => {
     if (elemHover) {
       // eslint-disable-next-line
       elemHoverUuid = createUuid(elemHover)
+      console.log(elemHoverUuid)
     }
     // Скроллим для превью нового ингредиента
     elemHover && previewRef.current.scrollIntoView()
@@ -99,7 +100,9 @@ export default function BurgerConstructor() {
         {constructorItems.map((item, index) => (
           <ListElement item={item} index={index} key={item.uuid} blackoutOpacity={mainOpacity} />
         ))}
-        {elemHover && <PhantomListElement item={elemHover} key={elemHoverUuid} ref={previewRef} />}
+        {elemHover && (
+          <PhantomListElement item={elemHover} key={elemHover && elemHover.uuid} ref={previewRef} />
+        )}
       </ul>
       <div className={style.elementWrapper} style={{ opacity: bunOpacity }}>
         <ConstructorElement
