@@ -1,0 +1,13 @@
+.categoryTitle {
+  margin-top: 40px;
+}
+.categoryContent {
+  margin: 0;
+  margin-top: 23px;
+  padding: 0 26px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+}
