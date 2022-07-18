@@ -7,6 +7,7 @@ export default function BurgerIngredients() {
   // Статы
   const [currentTab, setCurrentTab] = useState('bun')
   const [categoryStarts, setStarts] = useState({})
+  const [didMount, setDidMount] = useState(false)
   // Рефы
   const containerRef = createRef(null)
   const bunRef = createRef(null)
@@ -19,7 +20,6 @@ export default function BurgerIngredients() {
       sauce: handleTab('sauce', true),
       main: handleTab('main', true),
     })
-    containerRef.current.scrollTop = 0
     // eslint-disable-next-line
   }, [])
   // Переходы на табы
@@ -34,6 +34,12 @@ export default function BurgerIngredients() {
   }
   // Автоматическая смена таба когда в категории
   const handleAutoTab = () => {
+    // Защита от преждевременно выбранной категории
+    if (!didMount) {
+      containerRef.current.scrollTop = 0
+      setCurrentTab('bun')
+      setDidMount(true)
+    }
     const scroll = containerRef.current.scrollTop
     const { sauce, main } = categoryStarts
     scroll < sauce

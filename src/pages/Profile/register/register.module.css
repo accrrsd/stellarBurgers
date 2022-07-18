@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'JetBrains Mono', Arial, Helvetica, sans-serif;
+
+  min-width: 480px;
+  min-height: 430px;
+}
+
+.title {
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 80px;
+  margin-top: 24px;
+}
+
+.suggest {
+  box-sizing: border-box;
+  color: #8585ad;
+  margin: 0;
+}
+
+.accentLink {
+  margin-left: 10px;
+  color: #4c4cff;
+  text-decoration: none;
+}
