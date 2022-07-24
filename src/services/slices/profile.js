@@ -147,7 +147,7 @@ const profileSlice = createSlice({
       state.refreshToken = action.payload.refreshToken
     },
 
-    [refreshToken.rejected]: (state, action) => {
+    [refreshToken.rejected]: (state) => {
       setCookie('access', false)
       state.loginState = false
       localStorage.removeItem('refreshToken')
@@ -158,14 +158,11 @@ const profileSlice = createSlice({
     },
 
     [getUserProfile.fulfilled]: (state, action) => {
-      state.user = {
-        ...state.user,
-        name: action.payload.user.name,
-        email: action.payload.user.email,
-      }
+      state.user.name = action.payload.user.name
+      state.user.email = action.payload.user.email
     },
 
-    [getUserProfile.rejected]: (state, action) => {
+    [getUserProfile.rejected]: (state) => {
       setCookie('access', false)
       state.loginState = false
       localStorage.removeItem('refreshToken')
