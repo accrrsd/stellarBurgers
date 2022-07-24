@@ -1,0 +1,6 @@
+.content {
+  margin-top: 37px;
+  display: flex;
+  justify-content: center;
+  gap: 42px;
+}

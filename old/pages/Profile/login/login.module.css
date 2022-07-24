@@ -20,6 +20,13 @@
   align-items: center;
   margin-bottom: 80px;
   margin-top: 24px;
+  width: 420px;
+}
+
+.suggestsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .suggest {

@@ -1,11 +1,5 @@
 .wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 120px;
-}
-.connect {
-  display: flex;
   text-align: center;
   align-items: flex-start;
   font-family: 'JetBrains Mono', Arial, Helvetica, sans-serif;
@@ -36,11 +30,4 @@
   gap: 24px;
   align-items: center;
   min-width: 420px;
-}
-
-.buttonsWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
