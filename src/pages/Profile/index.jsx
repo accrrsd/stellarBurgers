@@ -11,19 +11,13 @@ import { getCookie } from '../../utils/cookie'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 export default function Profile() {
   const dispatch = useDispatch()
-  const userData = useSelector((store) => store.profileReducer.user)
-  const [initialData, setInitialData] = useState(structuredClone(userData))
+  const initialData = useSelector((store) => store.profileReducer.user)
 
+  // Обновление данных
   useEffect(() => {
     const cookie = getCookie('access') !== 'false'
     cookie && dispatch(getUserProfile())
   }, [dispatch])
-
-  useEffect(() => {
-    // ! Костыль который нужно исправлять
-    setInitialData(structuredClone(userData))
-    setFormState(structuredClone(userData))
-  }, [userData])
 
   const [disabledInputs, setDisabledInputs] = useState({
     name: true,
@@ -47,6 +41,21 @@ export default function Profile() {
     setValue,
     handleSubmit,
   } = formHook
+
+  // Начальные значения после получения данных о пользователе
+  useEffect(() => {
+    setFormState({
+      ...formState,
+      name: initialData.name,
+      email: initialData.email,
+      password: initialData.password,
+    })
+
+    formHook.setValue('name', initialData.name)
+    formHook.setValue('email', initialData.email)
+    formHook.setValue('password', initialData.password)
+    // eslint-disable-next-line
+  }, [initialData])
 
   // Запись значений из инпута
   const handleChange = (e) => {

@@ -40,13 +40,14 @@ export function postOrder(arrayOfId) {
     .then((result) => result)
 }
 
-export function profileManager(content, actionString, ready) {
+export function profileManager(content, actionString) {
+  console.log(content, dataUrls[actionString])
   return fetch(dataUrls[actionString], {
     headers: {
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: ready ? content : JSON.stringify(content),
+    body: JSON.stringify(content),
   })
     .then(checkResponse)
     .then((result) => result)

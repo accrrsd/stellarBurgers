@@ -158,8 +158,11 @@ const profileSlice = createSlice({
     },
 
     [getUserProfile.fulfilled]: (state, action) => {
-      state.user.name = action.payload.user.name
-      state.user.email = action.payload.user.email
+      state.user = {
+        ...state.user,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+      }
     },
 
     [getUserProfile.rejected]: (state, action) => {
