@@ -5,14 +5,16 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import { FormElement } from '../../components/form-element/form-element'
-import { emailRules, simpleRequired } from '../../utils/variables'
+import { simpleRequired } from '../../utils/variables'
 import { resetPass } from '../../services/slices/profile'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
+//! Пока не ясна механика токена, ждем ответа в слаке
+
 export default function ResetPassword() {
   const [formState, setFormState] = useState({
-    newPassword: '',
-    emailCode: '',
+    password: '',
+    code: '',
   })
 
   const dispatch = useDispatch()
@@ -30,10 +32,9 @@ export default function ResetPassword() {
   const { setValue, handleSubmit } = formHook
 
   const submit = (data) => {
-    const newData = structuredClone(data)
     const res = {}
-    res.password = newData.password
-    res.token = newData.emailCode
+    res.password = data.password
+    res.token = data.code
     dispatch(resetPass(res))
     navigate('/', { state: { fromForgot: false } })
   }
@@ -49,20 +50,20 @@ export default function ResetPassword() {
       <form className={style.form} onSubmit={handleSubmit(submit)}>
         <FormElement
           formHook={formHook}
-          name="newPassword"
+          name="password"
           type="password"
           rules={simpleRequired}
           placeholder="Введите новый пароль"
-          value={formState.newPassword}
+          value={formState.password}
           onChange={handleChange}
         />
         <FormElement
           formHook={formHook}
-          name="emailCode"
+          name="code"
           type="text"
-          rules={emailRules}
+          rules={simpleRequired}
           placeholder="Введите код из письма"
-          value={formState.emailCode}
+          value={formState.code}
           onChange={handleChange}
         />
         <Button>Сохранить</Button>

@@ -53,7 +53,7 @@ export default function Register() {
           formHook={formHook}
           name="password"
           rules={simpleRequired}
-          type={'password'}
+          type="password"
           placeholder="Пароль"
           value={formState.password}
           onChange={handleChange}

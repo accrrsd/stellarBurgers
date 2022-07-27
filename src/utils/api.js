@@ -8,7 +8,7 @@ const dataUrls = {
   refreshToken: mainUrl + '/auth/token',
 
   forgotPass: mainUrl + '/password-reset',
-  resetPass: mainUrl + '/password-reset/reset',
+  resetPassword: mainUrl + '/password-reset/reset',
 }
 /**
  *
@@ -30,11 +30,24 @@ export function postOrder(arrayOfId) {
   return fetch(mainUrl + '/orders', {
     headers: {
       'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookie('access'),
     },
     method: 'POST',
     body: JSON.stringify({
       ingredients: arrayOfId,
     }),
+  })
+    .then(checkResponse)
+    .then((result) => result)
+}
+
+export function resetPassword(content) {
+  return fetch(dataUrls.resetPassword, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify(content),
   })
     .then(checkResponse)
     .then((result) => result)

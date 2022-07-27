@@ -2,8 +2,9 @@ import { useSelector } from 'react-redux/es/exports'
 import style from './ingredient-details.module.css'
 import '../../../fonts/jetBrainsFont.css'
 
-const IngredientDetails = () => {
-  const item = useSelector((store) => store.ingredientDetailsReducer.ingredient)
+const IngredientDetails = ({ givenItem }) => {
+  const selectedItem = useSelector((store) => store.ingredientDetailsReducer.ingredient)
+  const item = givenItem || selectedItem
   return (
     <div className={style.wrapper}>
       <img src={item.image} alt={item.name} className={style.image} />

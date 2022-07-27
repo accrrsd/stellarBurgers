@@ -3,6 +3,7 @@ import {
   profileManager,
   getUser,
   patchUser,
+  resetPassword,
   refreshToken as refreshTokenApi,
 } from '../../utils/api'
 import { setCookie, getCookie } from '../../utils/cookie'
@@ -87,8 +88,9 @@ export const forgotPass = createAsyncThunk(
 export const resetPass = createAsyncThunk(
   'profileSlice/resetPass',
   async function (body, { rejectWithValue }) {
+    console.log(body)
     try {
-      return profileManager(body, 'resetPass')
+      return resetPassword(body)
     } catch (error) {
       rejectWithValue(error.massage)
     }

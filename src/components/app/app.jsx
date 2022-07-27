@@ -13,6 +13,8 @@ import { ProtectedAuthorized, ProtectedUnauthorized } from '../protected-routes/
 import { useEffect } from 'react'
 import { checkAuth } from '../../services/slices/profile'
 import { useDispatch } from 'react-redux'
+import IngredientPage from '../../pages/Ingredient/index'
+
 export default function App() {
   const dispatch = useDispatch()
 
@@ -25,6 +27,7 @@ export default function App() {
       <AppHeader />
       <Routes>
         <Route path="/" element={<Constructor />} />
+        <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="/orders/*" element={<></>} />
 
         {/* Защита от не авторизованного */}

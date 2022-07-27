@@ -118,7 +118,7 @@ export default function Profile() {
             name="email"
             type="email"
             rules={emailRules}
-            placeholder="E-mail"
+            placeholder="Логин"
             value={formState.email}
             onChange={handleChange}
             icon={disabledInputs.email ? 'EditIcon' : 'CloseIcon'}
