@@ -1,7 +1,7 @@
 import style from './reset-password.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import { FormElement } from '../../components/form-element/form-element'
@@ -16,16 +16,26 @@ export default function ResetPassword() {
   })
 
   const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const prevPage = !!location.state?.fromForgot
+
+  useEffect(() => {
+    !prevPage && navigate(-1)
+  }, [prevPage, navigate])
 
   const formHook = useForm({ mode: 'onBlur' })
 
   const { setValue, handleSubmit } = formHook
 
   const submit = (data) => {
-    const token = ''
-    const res = structuredClone(data)
-    res.token = token
+    const newData = structuredClone(data)
+    const res = {}
+    res.password = newData.password
+    res.token = newData.emailCode
     dispatch(resetPass(res))
+    navigate('/', { state: { fromForgot: false } })
   }
 
   const handleChange = (e) => {
@@ -59,7 +69,7 @@ export default function ResetPassword() {
       </form>
       <p className={style.suggest}>
         Вспомнили пароль?
-        <Link to={'/profile/login'} className={style.accentLink}>
+        <Link to={'/login'} className={style.accentLink}>
           Войти
         </Link>
       </p>

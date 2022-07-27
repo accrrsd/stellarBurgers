@@ -1,5 +1,5 @@
 import style from './forgot-password.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
@@ -13,12 +13,16 @@ export default function ForgotPassword() {
   const [emailValue, setEmailValue] = useState('')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const formHook = useForm({ mode: 'onBlur' })
 
   const { setValue, handleSubmit } = formHook
 
-  const submit = (data) => dispatch(forgotPass(data))
+  const submit = (data) => {
+    dispatch(forgotPass(data))
+    navigate('/reset-password', { state: { fromForgot: true } })
+  }
 
   const handleChange = (e) => {
     setEmailValue(e.target.value)

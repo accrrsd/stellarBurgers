@@ -102,7 +102,7 @@ const rewriteAllState = (state, action) => {
   state.user.email = received.user.email
   state.accessToken = received.accessToken
   state.refreshToken = received.refreshToken
-  state.loginState = received.success
+  state.loginState = true
 
   window.localStorage.setItem('refreshToken', received.refreshToken)
   // Куки
@@ -117,7 +117,7 @@ const profileSlice = createSlice({
     user: {
       name: '',
       email: '',
-      password: 'password',
+      password: '',
     },
     accessToken: '',
     refreshToken: window.localStorage.getItem('refreshToken') || '',
@@ -153,8 +153,9 @@ const profileSlice = createSlice({
       localStorage.removeItem('refreshToken')
     },
 
-    [logout.fulfilled]: (state, action) => {
-      state.loginState = !action.payload.success
+    [logout.fulfilled]: (state) => {
+      setCookie('access', false)
+      state.loginState = false
     },
 
     [getUserProfile.fulfilled]: (state, action) => {

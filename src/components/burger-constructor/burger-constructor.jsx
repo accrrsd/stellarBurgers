@@ -19,22 +19,31 @@ import {
 } from '../../services/slices/constructorList'
 import { getOrderDetails } from '../../services/slices/orderDetails'
 import { ListElement, PhantomListElement } from './list-element/list-element'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function BurgerConstructor() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const previewRef = createRef(null)
   const dispatch = useDispatch()
 
   const constructorItems = useSelector((store) => store.constructorReducer.items)
   const constructorValue = useSelector((store) => store.constructorReducer.value)
+  const auth = useSelector((store) => store.profileReducer.loginState)
 
   const sideBun = useSelector((store) => store.constructorReducer.sideBun)
 
   const createOrder = () => {
-    dispatch(
-      getOrderDetails(constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id))
-    )
-    dispatch(initItems([]))
-    dispatch(changeSideBun(false))
+    if (auth) {
+      dispatch(
+        getOrderDetails(constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id))
+      )
+      dispatch(initItems([]))
+      dispatch(changeSideBun(false))
+    } else {
+      navigate('/login', { state: { from: location } })
+    }
   }
 
   const createUuid = (obj) => {

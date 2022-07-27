@@ -41,7 +41,6 @@ export function postOrder(arrayOfId) {
 }
 
 export function profileManager(content, actionString) {
-  console.log(content, dataUrls[actionString])
   return fetch(dataUrls[actionString], {
     headers: {
       'Content-Type': 'application/json',
@@ -54,8 +53,6 @@ export function profileManager(content, actionString) {
 }
 
 export function refreshToken(content) {
-  console.log(JSON.stringify(content))
-  console.log(getCookie('access'))
   return fetch(dataUrls.refreshToken, {
     headers: {
       'Content-Type': 'application/json',

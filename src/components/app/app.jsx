@@ -8,8 +8,18 @@ import Login from '../../pages/login'
 import Register from '../../pages/register'
 import ForgotPassword from '../../pages/forgot-password'
 import ResetPassword from '../../pages/reset-password'
-import { ProtectedRoute } from '../protected-route/protected-route'
+// import { ProtectedRoute } from '../protected-route/protected-route'
+import { ProtectedAuthorized, ProtectedUnauthorized } from '../protected-routes/protected-routes'
+import { useEffect } from 'react'
+import { checkAuth } from '../../services/slices/profile'
+import { useDispatch } from 'react-redux'
 export default function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(checkAuth())
+  }, [dispatch])
+
   return (
     <>
       <AppHeader />
@@ -17,32 +27,18 @@ export default function App() {
         <Route path="/" element={<Constructor />} />
         <Route path="/orders/*" element={<></>} />
 
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <ProtectedRoute protectAuth>
-              <Login />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <ProtectedRoute protectAuth>
-              <Register />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        {/* Защита от не авторизованного */}
+        <Route element={<ProtectedUnauthorized />}>
+          <Route path="/profile/*" element={<Profile />} />
+        </Route>
+
+        {/* Защита авторизованного */}
+        <Route element={<ProtectedAuthorized />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Route>
       </Routes>
     </>
   )
