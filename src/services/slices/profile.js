@@ -14,7 +14,7 @@ export const getUserProfile = createAsyncThunk(
     try {
       return getUser()
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -25,7 +25,7 @@ export const patchUserProfile = createAsyncThunk(
     try {
       return patchUser(body)
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -36,7 +36,7 @@ export const login = createAsyncThunk(
     try {
       return profileManager(body, 'login')
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -47,7 +47,7 @@ export const register = createAsyncThunk(
     try {
       return profileManager(body, 'register')
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -58,7 +58,7 @@ export const logout = createAsyncThunk(
     try {
       return profileManager(body, 'logout')
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -69,7 +69,7 @@ export const refreshToken = createAsyncThunk(
     try {
       return refreshTokenApi(body)
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -81,7 +81,7 @@ export const forgotPass = createAsyncThunk(
     try {
       return profileManager(body, 'forgotPass')
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -92,7 +92,7 @@ export const resetPass = createAsyncThunk(
     try {
       return resetPassword(body)
     } catch (error) {
-      rejectWithValue(error.massage)
+      return rejectWithValue(error.message)
     }
   }
 )
@@ -166,9 +166,7 @@ const profileSlice = createSlice({
     },
 
     [getUserProfile.rejected]: (state) => {
-      setCookie('access', false)
       state.loginState = false
-      localStorage.removeItem('refreshToken')
     },
   },
   reducers: {

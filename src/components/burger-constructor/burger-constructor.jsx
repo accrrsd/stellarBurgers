@@ -1,6 +1,7 @@
 import { useEffect, createRef } from 'react'
 import { useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
+import { refreshToken } from '../../services/slices/profile'
 import style from './burger-constructor.module.css'
 import {
   ConstructorElement,
@@ -36,8 +37,15 @@ export default function BurgerConstructor() {
 
   const createOrder = () => {
     if (auth) {
+      const concats = constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id)
       dispatch(
-        getOrderDetails(constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id))
+        getOrderDetails(concats).then(
+          (data) =>
+            data.meta.requestStatus === 'rejected' &&
+            dispatch(refreshToken()).then(() => {
+              dispatch(getOrderDetails(concats))
+            })
+        )
       )
       dispatch(initItems([]))
       dispatch(changeSideBun(false))

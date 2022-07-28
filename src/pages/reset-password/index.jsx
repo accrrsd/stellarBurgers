@@ -8,6 +8,7 @@ import { FormElement } from '../../components/form-element/form-element'
 import { simpleRequired } from '../../utils/variables'
 import { resetPass } from '../../services/slices/profile'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { refreshToken } from '../../services/slices/profile'
 
 //! Пока не ясна механика токена, ждем ответа в слаке
 
@@ -35,7 +36,13 @@ export default function ResetPassword() {
     const res = {}
     res.password = data.password
     res.token = data.code
-    dispatch(resetPass(res))
+    dispatch(resetPass(res)).then(
+      (data) =>
+        data.meta.requestStatus === 'rejected' &&
+        dispatch(refreshToken()).then(() => {
+          dispatch(resetPass(res))
+        })
+    )
     navigate('/', { state: { fromForgot: false } })
   }
 

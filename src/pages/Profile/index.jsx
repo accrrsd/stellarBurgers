@@ -6,7 +6,7 @@ import { FormElement } from '../../components/form-element/form-element'
 import Links from './links'
 import { emailRules, simpleRequired } from '../../utils/variables'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserProfile, patchUserProfile } from '../../services/slices/profile'
+import { getUserProfile, patchUserProfile, refreshToken } from '../../services/slices/profile'
 import { getCookie } from '../../utils/cookie'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 export default function Profile() {
@@ -16,7 +16,14 @@ export default function Profile() {
   // Обновление данных
   useEffect(() => {
     const cookie = getCookie('access') !== 'false'
-    cookie && dispatch(getUserProfile())
+    cookie &&
+      dispatch(getUserProfile()).then(
+        (data) =>
+          data.meta.requestStatus === 'rejected' &&
+          dispatch(refreshToken()).then(() => {
+            dispatch(getUserProfile())
+          })
+      )
   }, [dispatch])
 
   const [disabledInputs, setDisabledInputs] = useState({
@@ -96,7 +103,13 @@ export default function Profile() {
   }
 
   const submit = (data) => {
-    dispatch(patchUserProfile(data))
+    dispatch(patchUserProfile(data)).then(
+      (data2) =>
+        data2.meta.requestStatus === 'rejected' &&
+        dispatch(refreshToken()).then(() => {
+          dispatch(patchUserProfile(data))
+        })
+    )
   }
 
   return (

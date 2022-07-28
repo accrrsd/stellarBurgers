@@ -8,6 +8,7 @@ import { emailRules, simpleRequired } from '../../utils/variables'
 import { useDispatch } from 'react-redux'
 import { register } from '../../services/slices/profile'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { refreshToken } from '../../services/slices/profile'
 
 export default function Register() {
   const dispatch = useDispatch()
@@ -25,7 +26,15 @@ export default function Register() {
     setValue(e.target.name, e.target.value)
   }
 
-  const submit = (data) => dispatch(register(data))
+  const submit = (data) => {
+    dispatch(register(data)).then(
+      (data2) =>
+        data2.meta.requestStatus === 'rejected' &&
+        dispatch(refreshToken()).then(() => {
+          dispatch(register(data))
+        })
+    )
+  }
 
   return (
     <div className={style.wrapper}>
