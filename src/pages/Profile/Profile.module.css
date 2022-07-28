@@ -46,4 +46,11 @@
   align-items: center;
   justify-content: center;
   margin-left: 170px;
+  transition: opacity 0.5s ease-in-out;
+}
+.buttonsVisible {
+  opacity: 1;
+}
+.buttonsHide {
+  opacity: 0;
 }

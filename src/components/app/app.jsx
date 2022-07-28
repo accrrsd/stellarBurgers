@@ -33,6 +33,7 @@ export default function App() {
         {/* Защита от не авторизованного */}
         <Route element={<ProtectedUnauthorized />}>
           <Route path="/profile/*" element={<Profile />} />
+          <Route path="/profile/orders" element={<></>} />
         </Route>
 
         {/* Защита авторизованного */}

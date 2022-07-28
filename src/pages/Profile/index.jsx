@@ -57,6 +57,16 @@ export default function Profile() {
     // eslint-disable-next-line
   }, [initialData])
 
+  const [buttonsVisible, setButtonVisible] = useState(false)
+
+  useEffect(() => {
+    setButtonVisible(
+      formState.name !== initialData.name ||
+        formState.email !== initialData.email ||
+        formState.password !== initialData.password
+    )
+  }, [formState, initialData])
+
   // Запись значений из инпута
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value })
@@ -79,8 +89,10 @@ export default function Profile() {
   }
 
   const cancelForm = (e) => {
+    setButtonVisible(false)
     formHook.reset(initialData, { keepDefaultValues: true })
     setFormState(initialData)
+    formHook.clearErrors()
   }
 
   const submit = (data) => {
@@ -126,14 +138,15 @@ export default function Profile() {
             onBlur={handleOnBlur}
             disabled={disabledInputs.email}
           />
-
           <FormElement
             ref={passwordRef}
             formHook={formHook}
             name="password"
             noPreset
             type={disabledInputs.password ? 'password' : 'text'}
-            rules={simpleRequired}
+            rules={{
+              required: buttonsVisible ? 'Обязательное поле' : false,
+            }}
             placeholder="Пароль"
             value={formState.password}
             onChange={handleChange}
@@ -142,7 +155,11 @@ export default function Profile() {
             onBlur={handleOnBlur}
             disabled={disabledInputs.password}
           />
-          <div className={style.buttonsWrapper}>
+          <div
+            className={`${style.buttonsWrapper} ${
+              buttonsVisible ? style.buttonsVisible : style.buttonsHide
+            }`}
+          >
             <Button type="secondary" onClick={cancelForm}>
               Отмена
             </Button>

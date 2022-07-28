@@ -30,7 +30,7 @@ export default function Links() {
       </li>
       <li className={style.item}>
         <NavLink
-          to="orders/:id"
+          to="orders"
           className={() => checkActive('history', true)}
           onClick={() => setActiveLink('history')}
         >

@@ -1,25 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import IngredientDetails from '../../components/modal-content/ingredient-details/ingredient-details'
 import { getIngredients } from '../../services/slices/ingredients'
+import ConstructorPage from '../Constructor'
 import style from './Ingredient.module.css'
 
 export default function IngredientPage() {
   const dispatch = useDispatch()
-  const location = useLocation()
-  const prevPage = location.state?.from?.pathname
   const { id } = useParams()
+  const [formPage, setFormPage] = useState(false)
   const allIngredients = useSelector((store) => store.ingredientsReducer.ingredients)
 
   // Если пришли не с модального окна - открываем страницу
-  useEffect(() => {
-    if (prevPage !== '/') {
-      dispatch(getIngredients())
-    }
-  }, [dispatch, prevPage, id])
 
-  if (allIngredients) {
+  const modalState = sessionStorage.getItem('openedIngredient')
+
+  useEffect(() => {
+    if (!modalState) {
+      setFormPage('ingredient')
+      dispatch(getIngredients())
+    } else {
+      setFormPage('modal')
+    }
+  }, [dispatch, modalState, id])
+
+  if (formPage === 'ingredient' && allIngredients) {
     const current = allIngredients.filter((ingredient) => ingredient._id === id)[0]
     return (
       <div className={style.wrapper}>
@@ -27,5 +33,9 @@ export default function IngredientPage() {
         <IngredientDetails givenItem={current} />
       </div>
     )
+  }
+
+  if (formPage === 'modal') {
+    return <ConstructorPage />
   }
 }

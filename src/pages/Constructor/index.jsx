@@ -11,13 +11,25 @@ import IngredientDetails from '../../components/modal-content/ingredient-details
 import { getIngredients } from '../../services/slices/ingredients'
 import { closeIngredientInfo } from '../../services/slices/ingredientDetails'
 import { closeOrderDetails } from '../../services/slices/orderDetails'
+import { openIngredientInfo } from '../../services/slices/ingredientDetails'
+import { useNavigate } from 'react-router-dom'
 
 export default function ConstructorPage() {
   const ingredient = useSelector((store) => store.ingredientDetailsReducer.ingredient)
   const orderDetails = useSelector((store) => store.orderDetailsReducer)
   const ingredientsData = useSelector((store) => store.ingredientsReducer.ingredients)
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  // Логика сохранения открытого модального окна
+  const opened = sessionStorage.getItem('openedIngredient')
+  useEffect(() => {
+    if (opened) {
+      const item = JSON.parse(opened)
+      opened && dispatch(openIngredientInfo(item))
+    }
+  }, [opened, dispatch])
 
   useEffect(() => {
     !ingredientsData && dispatch(getIngredients())
@@ -25,7 +37,7 @@ export default function ConstructorPage() {
 
   const closeAllModals = () => {
     dispatch(closeOrderDetails())
-    dispatch(closeIngredientInfo())
+    dispatch(closeIngredientInfo()) && navigate('/')
   }
   return (
     <>

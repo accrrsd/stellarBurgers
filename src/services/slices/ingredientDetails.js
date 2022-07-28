@@ -19,6 +19,7 @@ const ingredientDetailsSlice = createSlice({
     },
     closeIngredientInfo(state, action) {
       state.ingredient = false
+      sessionStorage.removeItem('openedIngredient')
     },
   },
 })
