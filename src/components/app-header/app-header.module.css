@@ -10,6 +10,12 @@
   font-family: 'jetBrains Mono', sans-serif;
 }
 
+.logoWrapper {
+  margin: 0;
+  padding: 0;
+  margin-top: 4px;
+}
+
 .headerList {
   margin: 0;
   padding: 0;

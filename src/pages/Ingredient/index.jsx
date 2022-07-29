@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import IngredientDetails from '../../components/modal-content/ingredient-details/ingredient-details'
-import { getIngredients } from '../../services/slices/ingredients'
 import ConstructorPage from '../Constructor'
 import style from './Ingredient.module.css'
 
@@ -19,7 +18,6 @@ export default function IngredientPage() {
   useEffect(() => {
     if (!modalState) {
       setFormPage('ingredient')
-      dispatch(getIngredients())
     } else {
       setFormPage('modal')
     }

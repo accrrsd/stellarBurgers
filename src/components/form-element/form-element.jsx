@@ -1,6 +1,7 @@
 import style from './form-element.module.css'
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { forwardRef } from 'react'
+import propValidate from 'prop-types'
 
 export const FormElement = forwardRef(
   ({ formHook, name, rules, wrapperStyle, type, noPreset, ...props }, ref) => {
@@ -62,3 +63,9 @@ export const FormElement = forwardRef(
     return result
   }
 )
+FormElement.propTypes = {
+  formHook: propValidate.object.isRequired,
+  name: propValidate.string.isRequired,
+  type: propValidate.string.isRequired,
+  noPreset: propValidate.bool,
+}

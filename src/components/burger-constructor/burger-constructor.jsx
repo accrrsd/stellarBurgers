@@ -37,15 +37,15 @@ export default function BurgerConstructor() {
 
   const createOrder = () => {
     if (auth) {
-      const concats = constructorItems.map((item) => item._id).concat(sideBun._id, sideBun._id)
-      dispatch(
-        getOrderDetails(concats).then(
-          (data) =>
-            data.meta.requestStatus === 'rejected' &&
-            dispatch(refreshToken()).then(() => {
-              dispatch(getOrderDetails(concats))
-            })
-        )
+      const ingredientsPlusBun = constructorItems
+        .map((item) => item._id)
+        .concat(sideBun._id, sideBun._id)
+      dispatch(getOrderDetails(ingredientsPlusBun)).then(
+        (data) =>
+          data.meta.requestStatus === 'rejected' &&
+          dispatch(refreshToken()).then(() => {
+            dispatch(getOrderDetails(ingredientsPlusBun))
+          })
       )
       dispatch(initItems([]))
       dispatch(changeSideBun(false))

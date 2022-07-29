@@ -36,7 +36,9 @@ export default function AppHeader() {
           </NavLink>
         </li>
       </ul>
-      <Logo />
+      <NavLink to="/" onClick={() => setActiveLink('constructor')} className={style.logoWrapper}>
+        <Logo />
+      </NavLink>
       <ul className={`${style.rightMenu} ${style.headerList}`}>
         <li>
           <NavLink

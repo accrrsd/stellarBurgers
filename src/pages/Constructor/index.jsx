@@ -8,7 +8,6 @@ import style from './constructor.module.css'
 import OrderDetails from '../../components/modal-content/order-details/order-details'
 import IngredientDetails from '../../components/modal-content/ingredient-details/ingredient-details'
 
-import { getIngredients } from '../../services/slices/ingredients'
 import { closeIngredientInfo } from '../../services/slices/ingredientDetails'
 import { closeOrderDetails } from '../../services/slices/orderDetails'
 import { openIngredientInfo } from '../../services/slices/ingredientDetails'
@@ -30,10 +29,6 @@ export default function ConstructorPage() {
       opened && dispatch(openIngredientInfo(item))
     }
   }, [opened, dispatch])
-
-  useEffect(() => {
-    !ingredientsData && dispatch(getIngredients())
-  }, [dispatch, ingredientsData])
 
   const closeAllModals = () => {
     dispatch(closeOrderDetails())

@@ -36,9 +36,7 @@ export function postOrder(arrayOfId) {
     body: JSON.stringify({
       ingredients: arrayOfId,
     }),
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 export function resetPassword(content) {
@@ -48,9 +46,7 @@ export function resetPassword(content) {
     },
     method: 'POST',
     body: JSON.stringify(content),
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 export function profileManager(content, actionString) {
@@ -60,9 +56,7 @@ export function profileManager(content, actionString) {
     },
     method: 'POST',
     body: JSON.stringify(content),
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 export function refreshToken(content) {
@@ -73,9 +67,7 @@ export function refreshToken(content) {
     },
     method: 'POST',
     body: JSON.stringify(content),
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 export function getUser() {
@@ -85,9 +77,7 @@ export function getUser() {
       authorization: 'Bearer ' + getCookie('access'),
     },
     method: 'GET',
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 export function patchUser(content) {
@@ -98,9 +88,7 @@ export function patchUser(content) {
     },
     method: 'PATCH',
     body: JSON.stringify(content),
-  })
-    .then(checkResponse)
-    .then((result) => result)
+  }).then(checkResponse)
 }
 
 const checkResponse = (res) => (res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))

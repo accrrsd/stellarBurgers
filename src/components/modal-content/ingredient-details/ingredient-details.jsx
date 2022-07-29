@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux/es/exports'
 import style from './ingredient-details.module.css'
 import '../../../fonts/jetBrainsFont.css'
+import { ingredientTypeNotRequired } from '../../../utils/propTypesSettings'
 
 const IngredientDetails = ({ givenItem }) => {
   const selectedItem = useSelector((store) => store.ingredientDetailsReducer.ingredient)
@@ -38,5 +39,7 @@ const IngredientDetails = ({ givenItem }) => {
     </div>
   )
 }
+
+IngredientDetails.propTypes = ingredientTypeNotRequired
 
 export default IngredientDetails
