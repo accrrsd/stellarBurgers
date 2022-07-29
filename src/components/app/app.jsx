@@ -1,5 +1,5 @@
 // import style from './app.module.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import Constructor from '../../pages/Constructor'
 import Profile from '../../pages/Profile'
@@ -15,9 +15,22 @@ import { checkAuth } from '../../services/slices/profile'
 import { useDispatch } from 'react-redux'
 import IngredientPage from '../../pages/Ingredient/index'
 import { getIngredients } from '../../services/slices/ingredients'
+import { closeIngredientInfo } from '../../services/slices/ingredientDetails'
+import { closeOrderDetails } from '../../services/slices/orderDetails'
+
+import Modal from '../modal/modal'
+import IngredientDetails from '../modal-content/ingredient-details/ingredient-details'
 
 export default function App() {
   const dispatch = useDispatch()
+  const location = useLocation()
+
+  const background = location.state?.background
+
+  const closeAllModals = () => {
+    dispatch(closeOrderDetails())
+    dispatch(closeIngredientInfo())
+  }
 
   useEffect(() => {
     dispatch(checkAuth())
@@ -27,9 +40,20 @@ export default function App() {
   return (
     <>
       <AppHeader />
-      <Routes>
+      <Routes location={background ?? location}>
         <Route path="/" element={<Constructor />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        {background && (
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        )}
+
         <Route path="/orders/*" element={<></>} />
 
         {/* Защита от не авторизованного */}

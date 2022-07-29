@@ -6,12 +6,13 @@ import style from './current-ingredient.module.css'
 import { openIngredientInfo } from '../../../services/slices/ingredientDetails'
 import { ingredientType } from '../../../utils/propTypesSettings'
 import { useDrag } from 'react-dnd'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const CurrentIngredient = ({ item }) => {
   const [count, setCount] = useState(0)
   const sideBun = useSelector((store) => store.constructorReducer.sideBun)
   const items = useSelector((store) => store.constructorReducer.items)
+  const location = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
     sideBun && item._id === sideBun._id
@@ -32,7 +33,7 @@ const CurrentIngredient = ({ item }) => {
   function handleClick() {
     sessionStorage.setItem('openedIngredient', JSON.stringify(item))
     dispatch(openIngredientInfo(item))
-    navigate(`ingredients/${item._id}`)
+    navigate(`ingredients/${item._id}`, { state: { background: location } })
   }
   return (
     !isDrag && (
