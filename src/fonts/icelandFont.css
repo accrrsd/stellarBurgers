@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Iceland', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  src: url('./Iceland-Regular.woff') format('woff');
+}

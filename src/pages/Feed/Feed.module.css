@@ -1,17 +1,24 @@
 .wrapper {
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: fit-content;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+}
 
-  margin-top: 133px;
+.connectWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
 }
 .title {
-  margin: 0;
   font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
   line-height: 40px;
-  color: #f2f2f3;
+
+  align-self: flex-start;
 }

@@ -1,0 +1,21 @@
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 608px;
+  max-height: 852px;
+  gap: 16px;
+  overflow-y: scroll;
+  padding: 0 8px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.wrapper::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #8585ad;
+}

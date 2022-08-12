@@ -1,6 +1,6 @@
 import style from './reset-password.module.css'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -10,9 +10,9 @@ import { resetPass } from '../../services/slices/profile'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { refreshToken } from '../../services/slices/profile'
 
-//! Пока не ясна механика токена, ждем ответа в слаке
-
 export default function ResetPassword() {
+  const localeToken = useSelector((store) => store.profileReducer.refreshToken)
+
   const [formState, setFormState] = useState({
     password: '',
     code: '',
@@ -39,7 +39,8 @@ export default function ResetPassword() {
     dispatch(resetPass(res)).then(
       (data) =>
         data.meta.requestStatus === 'rejected' &&
-        dispatch(refreshToken()).then(() => {
+        localeToken &&
+        dispatch(refreshToken({ token: localeToken })).then(() => {
           dispatch(resetPass(res))
         })
     )

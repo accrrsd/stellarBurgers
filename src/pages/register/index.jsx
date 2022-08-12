@@ -5,13 +5,15 @@ import { useForm } from 'react-hook-form'
 
 import { FormElement } from '../../components/form-element/form-element'
 import { emailRules, simpleRequired } from '../../utils/variables'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../services/slices/profile'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { refreshToken } from '../../services/slices/profile'
 
 export default function Register() {
   const dispatch = useDispatch()
+  const localeToken = useSelector((store) => store.profileReducer.refreshToken)
+
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -30,7 +32,8 @@ export default function Register() {
     dispatch(register(data)).then(
       (data2) =>
         data2.meta.requestStatus === 'rejected' &&
-        dispatch(refreshToken()).then(() => {
+        localeToken &&
+        dispatch(refreshToken({ token: localeToken })).then(() => {
           dispatch(register(data))
         })
     )

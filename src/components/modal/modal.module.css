@@ -3,7 +3,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: 1001;
 }
 .content {
   background: #1c1c21;
@@ -37,7 +37,7 @@
 .title {
   margin: 0;
   margin-left: 40px;
-  font-family: 'JetBrains Mono';
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 36px;

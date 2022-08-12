@@ -1,0 +1,98 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  width: 580px;
+  gap: 60px;
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: row;
+
+  gap: 36px;
+  width: 100%;
+}
+
+.numberList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.listTitle {
+  margin: 0;
+  padding: 0;
+
+  margin-top: 0;
+
+  margin-bottom: 24px;
+
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #f2f2f3;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.listItem {
+  padding: 0;
+  margin: 0;
+}
+
+.readyNumber {
+  font-family: 'Iceland', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 24px;
+
+  color: #00cccc;
+}
+
+.inWorkNumber {
+  font-family: 'Iceland', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 24px;
+
+  color: #f2f2f3;
+}
+
+.categoryWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.categoryTitle {
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #f2f2f3;
+}
+
+/* !Баг */
+.bigNumbers {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25),
+    0px 4px 32px rgba(51, 51, 255, 0.5);
+}

@@ -1,16 +1,5 @@
 .wrapper {
-  margin: 0 auto;
-  max-width: 1920px;
-}
-
-.connect {
-  display: flex;
-  text-align: center;
-  align-items: flex-start;
-  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
-
-  gap: 62px;
-  margin-left: 339px;
+  margin-top: 120px;
 }
 
 .form {

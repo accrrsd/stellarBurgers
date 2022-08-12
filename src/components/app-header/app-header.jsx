@@ -5,11 +5,24 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './app-header.module.css'
-import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 export default function AppHeader() {
   const [activeLink, setActiveLink] = useState('constructor')
+  const location = useLocation()
+
+  useEffect(() => {
+    const path = location.pathname
+    if (path === '/') {
+      setActiveLink('constructor')
+    } else if (path === '/feed') {
+      setActiveLink('feed')
+    } else if (path === '/profile' || path === 'login') {
+      setActiveLink('profile')
+    }
+  }, [location])
+
   const checkActive = (str, forLink) =>
     //prettier-ignore
     activeLink===str? (forLink? `${style.headerLink} ${style.headerLinkActive}`:'primary') : (forLink? style.headerLink : 'secondary')
@@ -28,11 +41,11 @@ export default function AppHeader() {
         </li>
         <li>
           <NavLink
-            to="/orders"
-            className={() => checkActive('orders', true)}
-            onClick={() => setActiveLink('orders')}
+            to="/feed"
+            className={() => checkActive('feed', true)}
+            onClick={() => setActiveLink('feed')}
           >
-            <ListIcon type={`${checkActive('orders')}`} /> Лента заказов
+            <ListIcon type={`${checkActive('feed')}`} /> Лента заказов
           </NavLink>
         </li>
       </ul>

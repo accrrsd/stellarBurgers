@@ -4,6 +4,7 @@ import { constructorReducer } from '../slices/constructorList'
 import { ingredientDetailsReducer } from '../slices/ingredientDetails'
 import { orderDetailsReducer } from '../slices/orderDetails'
 import { profileReducer } from '../slices/profile'
+import { ordersSliceReducer } from '../slices/orders'
 
 export const rootReducer = combineReducers({
   ingredientsReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   ingredientDetailsReducer,
   orderDetailsReducer,
   profileReducer,
+  ordersSliceReducer,
 })

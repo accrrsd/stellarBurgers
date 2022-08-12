@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/app/app'
 import './fonts/jetBrainsFont.css'
+import './fonts/icelandFont.css'
 import { rootReducer as reducer } from './services/reducers'
 
 const store = configureStore({ reducer })

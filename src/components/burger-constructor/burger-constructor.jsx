@@ -32,6 +32,7 @@ export default function BurgerConstructor() {
   const constructorItems = useSelector((store) => store.constructorReducer.items)
   const constructorValue = useSelector((store) => store.constructorReducer.value)
   const auth = useSelector((store) => store.profileReducer.loginState)
+  const localeToken = useSelector((store) => store.profileReducer.refreshToken)
 
   const sideBun = useSelector((store) => store.constructorReducer.sideBun)
 
@@ -43,7 +44,8 @@ export default function BurgerConstructor() {
       dispatch(getOrderDetails(ingredientsPlusBun)).then(
         (data) =>
           data.meta.requestStatus === 'rejected' &&
-          dispatch(refreshToken()).then(() => {
+          localeToken &&
+          dispatch(refreshToken({ token: localeToken })).then(() => {
             dispatch(getOrderDetails(ingredientsPlusBun))
           })
       )

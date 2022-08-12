@@ -7,7 +7,7 @@
   background: #1c1c21;
   box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-  font-family: 'jetBrains Mono', sans-serif;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
 }
 
 .logoWrapper {
@@ -43,7 +43,7 @@
   flex-direction: row;
   color: #8585ad;
 
-  font-family: 'JetBrains Mono';
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;

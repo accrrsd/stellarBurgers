@@ -6,7 +6,7 @@ import {
   resetPassword,
   refreshToken as refreshTokenApi,
 } from '../../utils/api'
-import { setCookie, getCookie } from '../../utils/cookie'
+import { setCookie, getCookie, eraseCookie } from '../../utils/cookie'
 
 export const getUserProfile = createAsyncThunk(
   'profileSlice/getUserProfile',
@@ -88,7 +88,6 @@ export const forgotPass = createAsyncThunk(
 export const resetPass = createAsyncThunk(
   'profileSlice/resetPass',
   async function (body, { rejectWithValue }) {
-    console.log(body)
     try {
       return resetPassword(body)
     } catch (error) {
@@ -108,8 +107,7 @@ const rewriteAllState = (state, action) => {
 
   window.localStorage.setItem('refreshToken', received.refreshToken)
   // Куки
-  let authToken = received.accessToken.split('Bearer ')[1]
-  authToken && setCookie('access', authToken)
+  setCookie('access', received.accessToken.split('Bearer ')[1])
 }
 
 const profileSlice = createSlice({
@@ -145,18 +143,20 @@ const profileSlice = createSlice({
     },
 
     [refreshToken.fulfilled]: (state, action) => {
+      setCookie('access', action.payload.accessToken.split('Bearer ')[1])
+
       state.accessToken = action.payload.accessToken
       state.refreshToken = action.payload.refreshToken
     },
 
     [refreshToken.rejected]: (state) => {
-      setCookie('access', false)
+      eraseCookie('access')
       state.loginState = false
       localStorage.removeItem('refreshToken')
     },
 
     [logout.fulfilled]: (state) => {
-      setCookie('access', false)
+      eraseCookie('access')
       state.loginState = false
     },
 
@@ -166,12 +166,13 @@ const profileSlice = createSlice({
     },
 
     [getUserProfile.rejected]: (state) => {
+      eraseCookie('access')
       state.loginState = false
     },
   },
   reducers: {
     checkAuth(state) {
-      const cookie = getCookie('access') !== 'false'
+      const cookie = !!getCookie('access')
       state.loginState = cookie
     },
   },

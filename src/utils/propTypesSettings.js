@@ -22,3 +22,14 @@ export const ingredientType = {
 export const ingredientTypeNotRequired = {
   item: propValidate.shape(ingredientShape),
 }
+
+export const orderShape = {
+  ingredients: propValidate.oneOfType([propValidate.array, propValidate.object, propValidate.bool])
+    .isRequired,
+  status: propValidate.string,
+  _id: propValidate.oneOfType([propValidate.number, propValidate.string, propValidate.bool])
+    .isRequired,
+  number: propValidate.oneOfType([propValidate.number, propValidate.string, propValidate.bool]),
+  updatedAt: propValidate.string,
+  name: propValidate.string,
+}
