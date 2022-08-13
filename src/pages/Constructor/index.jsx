@@ -30,7 +30,7 @@ export default function ConstructorPage() {
     }
   }, [opened, dispatch])
 
-  const closeAllModals = () => {
+  const onClose = () => {
     dispatch(closeOrderDetails())
     dispatch(closeIngredientInfo()) && navigate('/')
   }
@@ -44,13 +44,13 @@ export default function ConstructorPage() {
       )}
       {/* Если запрос вообще был проведен */}
       {orderDetails.success !== null && (
-        <Modal onEscKeyDown={closeAllModals}>
-          <OrderDetails onSubmit={closeAllModals} />
+        <Modal onEscKeyDown={onClose}>
+          <OrderDetails onSubmit={onClose} />
         </Modal>
       )}
 
       {ingredient && (
-        <Modal title="Детали ингредиента" onEscKeyDown={closeAllModals}>
+        <Modal title="Детали ингредиента" onEscKeyDown={onClose}>
           <IngredientDetails />
         </Modal>
       )}

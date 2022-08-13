@@ -4,14 +4,11 @@ import { v4 as uuidv4 } from 'uuid'
 import propValidate from 'prop-types'
 import { TapeCard } from './tape-card/tape-card'
 
-export const OrdersTape = ({ width, height, type, orders }) => {
+export const OrdersTape = ({ type, orders }) => {
   const ingredients = useSelector((store) => store.ingredientsReducer.ingredients)
 
   return (
-    <div
-      className={style.wrapper}
-      style={{ width: width && `${width}px`, maxHeight: height && `${height}px` }}
-    >
+    <div className={style.wrapper}>
       {orders?.map((order) => {
         const currentIngredients =
           ingredients &&
@@ -44,8 +41,6 @@ export const OrdersTape = ({ width, height, type, orders }) => {
 }
 
 OrdersTape.propTypes = {
-  width: propValidate.number,
-  height: propValidate.number,
   type: propValidate.string,
   orders: propValidate.oneOfType([propValidate.array, propValidate.bool]),
 }

@@ -1,9 +1,10 @@
 .wrapper {
-  margin: 0 auto;
   display: flex;
+  margin: 0;
   flex-direction: column;
-  width: 608px;
-  max-height: 852px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   gap: 16px;
   overflow-y: scroll;
   padding: 0 8px;

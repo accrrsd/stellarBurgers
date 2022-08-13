@@ -9,15 +9,13 @@ import dayjs from 'dayjs'
 import { openOrder } from '../../../services/slices/orders'
 
 export const TapeCard = ({ number, id, name, ingredients, date, price, type, status }) => {
-  const imagesArr = ingredients.map((ingredient) => ingredient.image_mobile)
+  const imagesArr = ingredients?.map((ingredient) => ingredient.image_mobile) || false
 
   const props = { number, _id: id, name, ingredients, date, price, type, status }
 
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
-
-  // dayjs(date).format(`ddd, HH:mm iZ`)
 
   const handleClick = () => {
     if (type === 'profile') {

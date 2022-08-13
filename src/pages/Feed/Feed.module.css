@@ -13,6 +13,11 @@
   flex-direction: row;
   gap: 60px;
 }
+.tapeWrapper {
+  max-width: 608px;
+  max-height: 852px;
+}
+
 .title {
   font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
   font-style: normal;

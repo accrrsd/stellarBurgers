@@ -28,7 +28,7 @@ export const UserOrders = () => {
 
   return (
     <div className={style.wrapper}>
-      <OrdersTape width={844} height={916} orders={userOrders.orders} type="profile" />
+      <OrdersTape orders={userOrders.orders} type="profile" />
       {openedOrder && (
         <Modal
           title={`#${(opened && JSON.parse(opened).number) || openedOrder.number}`}

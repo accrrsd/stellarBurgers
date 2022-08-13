@@ -21,6 +21,10 @@ import ResetPassword from '../../pages/reset-password'
 import OrderPage from '../../pages/order'
 import IngredientPage from '../../pages/Ingredient/index'
 
+import dayjs from 'dayjs'
+require('dayjs/locale/ru')
+dayjs.locale('ru')
+
 export default function App() {
   const dispatch = useDispatch()
   const location = useLocation()
@@ -46,9 +50,6 @@ export default function App() {
       if (getCookie('access')) {
         profileWs.connect(getCookie('access'))
       }
-    } else {
-      feedWs.close = () => {}
-      profileWs.close = () => {}
     }
     // eslint-disable-next-line
   }, [location.pathname])

@@ -41,7 +41,9 @@ export default function Feed() {
     <div className={style.wrapper}>
       <h2 className={style.title}>Лента заказов</h2>
       <div className={style.connectWrapper}>
-        <OrdersTape orders={data.orders} type="feed" />
+        <div className={style.tapeWrapper}>
+          <OrdersTape orders={data.orders} type="feed" />
+        </div>
         <FeedNumbers
           readyNumberArr={readyNumbers?.length > 5 ? readyNumbers.slice(0, 5) : readyNumbers}
           workNumberArr={inWorkNumbers?.length > 5 ? inWorkNumbers.slice(0, 5) : inWorkNumbers}

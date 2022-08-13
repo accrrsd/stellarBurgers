@@ -57,3 +57,12 @@
 .headerLinkActive {
   color: white;
 }
+
+@media screen and (max-width: 1300px) {
+  .leftMenu {
+    margin-right: auto;
+  }
+  .rightMenu {
+    margin-left: auto;
+  }
+}
