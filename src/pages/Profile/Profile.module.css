@@ -1,0 +1,43 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 1920px;
+}
+
+.connect {
+  display: flex;
+  text-align: center;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+
+  gap: 62px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  min-width: 480px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 170px;
+  transition: opacity 0.5s ease-in-out;
+}
+.buttonsVisible {
+  opacity: 1;
+}
+.buttonsHide {
+  opacity: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .connect {
+    gap: 0;
+  }
+}

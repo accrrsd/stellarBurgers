@@ -1,0 +1,112 @@
+.wrapper {
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  padding: 40px;
+  width: 680px;
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.status {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.statusDone {
+  color: #00cccc;
+}
+
+.statusDeny {
+  color: red;
+}
+
+.compoundTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0;
+  margin-bottom: 24px;
+  margin-top: 60px;
+}
+
+.list {
+  list-style: none;
+  max-height: 366px;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+
+  margin: 0;
+  padding: 0;
+
+  padding-right: 25px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #8585ad;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredientWrapper {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ingredientName {
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 320px;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.date {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585ad;
+}
+
+.numberIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}

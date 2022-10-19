@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+
+  margin-top: 180px;
+
+  min-width: 480px;
+  min-height: 430px;
+}
+
+.title {
+  margin: 0;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+  margin-bottom: 80px;
+  margin-top: 20px;
+  min-width: 480px;
+}
+
+.suggestsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.suggest {
+  box-sizing: border-box;
+  color: #8585ad;
+  margin: 0;
+}
+
+.accentLink {
+  margin-left: 10px;
+  color: #4c4cff;
+  text-decoration: none;
+}

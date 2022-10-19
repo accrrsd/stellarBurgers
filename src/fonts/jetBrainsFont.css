@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  src: url('./JetBrainsMono-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  src: url('./JetBrainsMono-Regular.woff') format('woff');
+}

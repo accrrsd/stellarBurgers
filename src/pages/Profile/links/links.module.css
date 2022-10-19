@@ -1,0 +1,47 @@
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  margin-top: 120px;
+}
+
+.linksSubline {
+  margin-top: 80px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585ad;
+  opacity: 0.4;
+  text-align: left;
+  width: 320px;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  min-width: 320px;
+  height: 64px;
+}
+
+.link {
+  color: #8585ad;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.linkActive {
+  color: #f2f2f3;
+}

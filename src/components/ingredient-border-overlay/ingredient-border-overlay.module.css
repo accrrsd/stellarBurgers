@@ -1,0 +1,65 @@
+.wrapper {
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+}
+
+.number {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(28, 28, 33, 0.6);
+
+  border: none;
+  border-radius: 100px;
+
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.borders {
+  position: relative;
+  width: calc(64px + 2px);
+  height: calc(64px + 2px);
+
+  border-radius: 80px;
+  background-image: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+}
+
+.overlay {
+  position: absolute;
+  content: '';
+
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background-color: black;
+
+  border: none;
+  border-radius: 100px;
+}
+
+.image {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-position: center;
+  background-size: cover;
+
+  border: none;
+  border-radius: 100px;
+}

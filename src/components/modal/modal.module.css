@@ -1,0 +1,56 @@
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+.content {
+  background: #1c1c21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  animation: animateModalIn 0.5s;
+}
+
+@keyframes animateModalIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.upper {
+  display: flex;
+  order: -1;
+  margin-top: 60px;
+  margin-right: 40px;
+}
+
+.title {
+  margin: 0;
+  margin-left: 40px;
+  font-family: 'Jet Brains Mono', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
+  color: #f2f2f3;
+}
+
+.closeButton {
+  /* position: absolute;
+  top: 60px;
+  right: 40px; */
+  background: transparent;
+  border: none;
+  margin-left: auto;
+  cursor: pointer;
+}
