@@ -22,3 +22,5 @@
 - HTML
 
 Реализовано асинхронное взаимодействие с апи, авторизацией и регистрацией.
+
+[Ссылка на GitPages](https://accrrsd.github.io/stellarBurgers/)
