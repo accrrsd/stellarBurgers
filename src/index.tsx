@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import { store } from './store/store'
 
@@ -15,10 +15,10 @@ const root = createRoot(container!)
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <DndProvider backend={HTML5Backend}>
         <App />
       </DndProvider>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
 )
