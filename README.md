@@ -20,6 +20,7 @@
 - Redux
 - Webpack (из React-create-app)
 - React hook form (library)
+- React DND (library)
 - HTML
 
 Реализовано асинхронное взаимодействие с апи, авторизацией и регистрацией.
