@@ -19,6 +19,7 @@
 - CSS
 - Redux
 - Webpack (из React-create-app)
+- React hook form (library)
 - HTML
 
 Реализовано асинхронное взаимодействие с апи, авторизацией и регистрацией.
